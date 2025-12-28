@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:40:00 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:40:02 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-void ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	if (!lst)
 		return ;
@@ -36,7 +48,6 @@ void ft_lstadd_back(t_list **lst, t_list *new)
 //	t_list	*list1;
 //	t_list	**frontptr;
 //	t_list	*frontlst;
-	
 //	frontlst = NULL;
 //	frontptr = &frontlst;
 //	list1 = ft_listnew("test1");
@@ -48,7 +59,7 @@ void ft_lstadd_back(t_list **lst, t_list *new)
 //{
 //	t_list	*list1;
 //	t_list	**frontptr;
-	
+
 //	frontptr = NULL;
 //	list1 = ft_listnew("test1");
 //	ft_lstadd_back(frontptr, list1);

@@ -1,36 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:57:23 by natakaha          #+#    #+#             */
+/*   Updated: 2025/11/10 19:02:59 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <string.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdint.h>
+# include <string.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <stdio.h>
+# include <stdbool.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdint.h>
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-} t_list;
+}	t_list;
 
-size_t  ft_strlen(const char *s);
-int     ft_atoi(const char *nptr);
-int     ft_strncmp(const char *s1, const char *s2, size_t len);
-int     ft_tolower(int c);
-int     ft_toupper(int c);
-int     ft_isdigit(int c);
-int     ft_isalpha(int c);
-int 	ft_isalnum(int c);
+# ifndef BUFFER_SIZE
+
+#  define BUFFER_SIZE 42
+
+# endif
+
+size_t	ft_strlen(const char *s);
+int		ft_atoi(const char *nptr);
+int		ft_strncmp(const char *s1, const char *s2, size_t len);
+int		ft_tolower(int c);
+int		ft_toupper(int c);
+int		ft_isdigit(int c);
+int		ft_isalpha(int c);
+int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 char	*ft_strnstr(const char *big,	const char *little, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-char 	*ft_strchr(const char *s, int c);
-char 	*ft_strrchr(const char *s, int c);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strrchr(const char *s, int c);
 void	*ft_memset(void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -56,8 +74,9 @@ int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
-void 	ft_lstclear(t_list **lst, void (*del)(void*));
+void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_strchr_len(const char *s, int c);
 
 #endif

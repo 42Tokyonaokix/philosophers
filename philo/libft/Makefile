@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/12/28 20:24:26 by natakaha          #+#    #+#              #
+#    Updated: 2025/12/28 20:24:26 by natakaha         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
@@ -44,6 +56,34 @@ SRCS = srcs/ft_atoi.c\
 	   srcs/ft_lstclear.c\
 	   srcs/ft_lstiter.c\
 	   srcs/ft_lstmap.c\
+	   srcs/format1_detect_percent.c\
+	   srcs/format2_count_percent.c\
+	   srcs/format3_execute_percent.c\
+	   srcs/flags1_setting_flags.c\
+	   srcs/flags2_read_format.c\
+	   srcs/flags3_management_flaglist.c\
+	   srcs/arg1_treat_c.c\
+	   srcs/arg2_treat_s.c\
+	   srcs/arg3_treat_di1.c\
+	   srcs/arg3_treat_di2.c\
+	   srcs/arg3_treat_di3.c\
+	   srcs/arg4_return_bases.c\
+	   srcs/arg5_treat_lx.c\
+	   srcs/arg6_treat_p.c\
+	   srcs/arg7_treat_u.c\
+	   srcs/arg8_treat_x.c\
+	   srcs/manage1_manage_format.c\
+	   srcs/manage2_free_lists.c\
+	   srcs/ft_printf.c\
+	   srcs/util_ft_atoi_alpha.c\
+	   srcs/util_ft_itoa_hexb.c\
+	   srcs/util_ft_itoa_hexs.c\
+	   srcs/util_ft_itoa_unsigned.c\
+	   srcs/util_ft_itoa.c\
+	   srcs/util_printf.c\
+	   srcs/ft_strchr_len.c\
+	   srcs/ft_strndup.c
+
 
 OBJS = $(SRCS:.c=.o)
 INCS = -I includes
@@ -57,15 +97,14 @@ $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(NAME)
+	rm -f $(OBJS)
 
-fclean:
-	rm -f $(NAME) $(OBJS)
+fclean: clean
+	rm -f $(NAME)
 
-re:
-	fclan all
+re: fclean all
 
-bonus: 
+bonus:
 	$(MAKE) all
 
 .PHONEY: all clean fclean re

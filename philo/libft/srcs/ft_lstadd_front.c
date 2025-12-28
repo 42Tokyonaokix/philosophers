@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:40:10 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:40:17 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-void ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (lst == NULL || new == NULL)
-		return;
+		return ;
 	new->next = *lst;
 	*lst = new;
 }
@@ -31,7 +43,7 @@ void ft_lstadd_front(t_list **lst, t_list *new)
 //	t_list	*list1;
 //	t_list	**frontptr;
 //	t_list	*frontlst;
-	
+
 //	frontlst = NULL;
 //	frontptr = &frontlst;
 //	//frontptr = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natakaha <natakaha@student.42tokyo.jp>     #+#  +:+       +#+        */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-12-23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2025-12-23 09:44:45 by natakaha         ###   ########.jp       */
+/*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
+/*   Updated: 2025/12/28 20:47:44 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 typedef struct	s_philos
 {
 	pthread_t			tag;
-	struct s_phoilos	*next;
+	int
 }	t_philos;
 
 

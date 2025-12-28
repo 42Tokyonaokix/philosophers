@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:40:55 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:41:09 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
@@ -10,7 +22,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 	while (temp)
 	{
 		f(temp->content);
-		temp = temp->next;		
+		temp = temp->next;
 	}
 }
 

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:47:51 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:49:02 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
 static size_t	count_words(char const *s, char c);
-static char	*ft_strndup(const char *str, size_t n);
-static void split_free(char **splitted, size_t index);
-static char	**allocate_char(const char *s, char **splitted, char c);
+static char		*ft_strndup(const char *str, size_t n);
+static void		split_free(char **splitted, size_t index);
+static char		**allocate_char(const char *s, char **splitted, char c);
 
 char	**ft_split(char const *s, char c)
 {
@@ -39,7 +51,8 @@ static char	**allocate_char(const char *s, char **splitted, char c)
 			split_free(splitted, index);
 			return (NULL);
 		}
-		index++, s += char_count;
+		index++;
+		s += char_count;
 	}
 	return (splitted[index] = NULL, splitted);
 }
@@ -56,7 +69,10 @@ static size_t	count_words(char const *s, char c)
 		while (s[index] && s[index] == c)
 			index++;
 		if (s[index] != c && s[index])
-			index++, count++;
+		{
+			index++;
+			count++;
+		}
 		while (s[index] && s[index] != c)
 			index++;
 	}
@@ -81,7 +97,7 @@ static char	*ft_strndup(const char *str, size_t n)
 	return (dest);
 }
 
-static void split_free(char **splitted, size_t index)
+static void	split_free(char **splitted, size_t index)
 {
 	free(splitted[index]);
 	while (index > 0)

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:55:21 by natakaha          #+#    #+#             */
+/*   Updated: 2025/11/10 18:59:50 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-char *ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	char *latest;
+	char	*latest;
 
 	latest = NULL;
 	if (c == '\0')
@@ -15,8 +27,3 @@ char *ft_strrchr(const char *s, int c)
 	return (latest);
 }
 
-//int main(void)
-//{
-//	printf("%p\n",ft_strrchr("",0));
-//	printf("%p\n",strchr ("",0));
-//}

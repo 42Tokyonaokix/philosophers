@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:49:42 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:50:44 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-void ft_striteri(char *s, void (*f)(unsigned int, char*))
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	unsigned int	index;	
-	
+	unsigned int	index;
+
 	index = 0;
 	while (*s)
 	{
@@ -13,17 +25,17 @@ void ft_striteri(char *s, void (*f)(unsigned int, char*))
 	}
 }
 
-void to_upper_if_even(unsigned int i, char *c)
-{
-    if (i % 2 == 1)
-        if ('A' <= *c && *c <= 'Z')
-    		*c += 32;
-}
+//void	to_upper_if_even(unsigned int i, char *c)
+//{
+//	if (i % 2 == 1)
+//		if ('A' <= *c && *c <= 'Z')
+//			*c += 32;
+//}
 
 //int main(void)
 //{
 //	char s[] = "ABCDEFG";
-	
+
 //	printf("%s\n", s);
 //	ft_striteri(s, to_upper_if_even);
 //	printf("%s\n", s);

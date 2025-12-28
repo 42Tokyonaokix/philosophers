@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:55:38 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:56:21 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
-static bool is_set(char const c, char const *set);
+
+static bool		is_set(char const c, char const *set);
 static size_t	start_len(char const *s1, char const *set);
 static size_t	end_len(char const *s1, char const *set);
 
@@ -17,7 +30,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	trimstr = (char *)malloc(sizeof(char) * (total_len + 1));
 	if (trimstr == NULL)
 		return (NULL);
-	start_str = start_len(s1,set), count = 0;
+	start_str = start_len(s1, set);
+	count = 0;
 	while (count < total_len)
 	{
 		trimstr[count] = s1[start_str + count];
@@ -27,10 +41,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (trimstr);
 }
 
-static bool is_set(char const c, char const *set)
+static bool	is_set(char const c, char const *set)
 {
-	size_t count;
-	
+	size_t	count;
+
 	count = 0;
 	while (set[count])
 	{
@@ -39,12 +53,12 @@ static bool is_set(char const c, char const *set)
 		count++;
 	}
 	return (false);
-} 
+}
 
 static size_t	start_len(char const *s1, char const *set)
 {
-	size_t count;
-	
+	size_t	count;
+
 	count = 0;
 	while (s1[count] && is_set(s1[count], set))
 		count++;
@@ -55,7 +69,7 @@ static size_t	end_len(char const *s1, char const *set)
 {
 	size_t	count;
 	size_t	end_str;
-	
+
 	end_str = ft_strlen(s1);
 	if (end_str <= 0)
 		return (0);

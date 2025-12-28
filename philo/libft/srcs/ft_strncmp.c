@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:54:09 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:54:34 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-int ft_strncmp(const char *s1, const char *s2, size_t len)
+int	ft_strncmp(const char *s1, const char *s2, size_t len)
 {
-    size_t  count;
+	size_t	count;
 
-    count = 0;
-    while ((s1[count] || s2[count]) && count < len)
+	count = 0;
+	while ((s1[count] || s2[count]) && count < len)
 	{
 		if (s1[count] != s2[count])
 			return ((unsigned char)s1[count] - (unsigned char)s2[count]);

@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:41:37 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:42:39 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-static t_list	*ft_lstmap2(t_list *lst, void *(*f)(void *), void (*del)(void *), t_list *newlist);
+static t_list	*ft_lstmap2(t_list *lst, void *(*f)(void *),
+					void (*del)(void *), t_list *newlist);
 
-t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*newlist;
 	void	*fstcontent;
-	
+
 	if (!lst)
 		return (NULL);
 	fstcontent = f(lst->content);
@@ -17,15 +30,16 @@ t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		return (NULL);
 	}
 	lst = lst->next;
-	newlist = ft_lstmap2(lst,f,del,newlist);
+	newlist = ft_lstmap2(lst, f, del, newlist);
 	return (newlist);
 }
 
-static t_list	*ft_lstmap2(t_list *lst, void *(*f)(void *), void (*del)(void *), t_list *newlist)
+static t_list	*ft_lstmap2(t_list *lst, void *(*f)(void *),
+					void (*del)(void *), t_list *newlist)
 {
 	t_list	*addlist;
 	void	*addcontent;
-		
+
 	while (lst)
 	{
 		addcontent = f(lst->content);

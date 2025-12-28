@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:53:54 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:54:01 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-char *ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	unsigned int	index;
 	char			*mapi;
@@ -27,4 +39,3 @@ char *ft_strmapi(char const *s, char (*f)(unsigned int, char))
 //{
 //	printf("%s", ft_strmapi("ABCDEFG", to_upper_if_even));
 //}
-

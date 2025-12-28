@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:45:28 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:46:11 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
-static void std_move(void *dest, const void *src, size_t n);
-static void rev_move(void *dest, const void *src, size_t n);
+static void	std_move(void *dest, const void *src, size_t n);
+static void	rev_move(void *dest, const void *src, size_t n);
 
-void *ft_memmove(void *dest, const void *src, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	if (dest < src)
 		std_move(dest, src, n);
@@ -12,14 +24,14 @@ void *ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-static void std_move(void *dest, const void *src, size_t n)
+static void	std_move(void *dest, const void *src, size_t n)
 {
-	unsigned  char	*pdest;
-	unsigned  char	*psrc;
-	size_t				count;
+	unsigned char	*pdest;
+	unsigned char	*psrc;
+	size_t			count;
 
-	pdest = (unsigned  char *)dest;
-	psrc = (unsigned  char *)src;
+	pdest = (unsigned char *)dest;
+	psrc = (unsigned char *)src;
 	count = 0;
 	while (count < n)
 	{
@@ -28,13 +40,13 @@ static void std_move(void *dest, const void *src, size_t n)
 	}
 }
 
-static void rev_move(void *dest, const void *src, size_t n)
+static void	rev_move(void *dest, const void *src, size_t n)
 {
-	unsigned  char	*pdest;
-	unsigned  char	*psrc;
+	unsigned char	*pdest;
+	unsigned char	*psrc;
 
-	pdest = (unsigned  char *)dest;
-	psrc = (unsigned  char *)src;
+	pdest = (unsigned char *)dest;
+	psrc = (unsigned char *)src;
 	while (n > 0)
 	{
 		n--;

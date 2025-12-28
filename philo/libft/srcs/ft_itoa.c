@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:39:29 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 03:04:19 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
 static char	*digit_allocate(int n, char *itoa, size_t index);
@@ -24,16 +36,16 @@ char	*ft_itoa(int n)
 	itoa = (char *)malloc(sizeof(char) * (n_digit + 1));
 	if (itoa == NULL)
 		return (NULL);
-	itoa = digit_allocate(n,  itoa, n_digit);
+	itoa = digit_allocate(n, itoa, n_digit);
 	return (itoa);
 }
 
 static char	*digit_allocate(int n, char *itoa, size_t index)
 {
 	if (n == INT_MIN)
-		return(ft_strcpy(itoa, "-2147483648"));
+		return (ft_strcpy(itoa, "-2147483648"));
 	if (n == 0)
-		return(ft_strcpy(itoa, "0"));
+		return (ft_strcpy(itoa, "0"));
 	if (n < 0)
 	{
 		itoa[0] = '-';
@@ -62,7 +74,6 @@ static char	*ft_strcpy(char *dest, const char *src)
 	dest[index] = '\0';
 	return (dest);
 }
-
 
 //int main(void)
 //{

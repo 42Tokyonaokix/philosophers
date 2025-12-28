@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 02:40:35 by natakaha          #+#    #+#             */
+/*   Updated: 2025/10/16 02:40:37 by natakaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft.h"
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
@@ -30,7 +42,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*))
 //int main(void)
 //{
 //	t_list	*list1;
-	
+
 //	list1 = ft_listnew(strdup("test1"));
 //	ft_lstdelone(list1, free);
 //}
