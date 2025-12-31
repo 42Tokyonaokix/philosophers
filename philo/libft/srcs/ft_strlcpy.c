@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 02:53:13 by natakaha          #+#    #+#             */
-/*   Updated: 2025/10/16 02:53:17 by natakaha         ###   ########.fr       */
+/*   Updated: 2025/12/31 16:25:49 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 	if (dstsize <= 0)
 		return (ft_strlen(src));
+	count = 0;
 	while (src[count] && count < dstsize -1)
 	{
 		dst[count] = src [count];

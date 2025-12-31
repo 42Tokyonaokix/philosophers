@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_gettime.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natakaha <natakaha@student.42tokyo.jp>     #+#  +:+       +#+        */
+/*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-12-29 08:36:33 by natakaha          #+#    #+#             */
-/*   Updated: 2025-12-29 08:36:33 by natakaha         ###   ########.jp       */
+/*   Created: 2025/12/29 08:36:33 by natakaha          #+#    #+#             */
+/*   Updated: 2025/12/31 16:49:52 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ int	timer(void)
 	if (!start)
 		start = t;
 	return (t - start);
+}
+
+int	waiting(int now, int time)
+{
+	while (timer() - now < time)
+		;
+	return (now + time);
 }
 
 //int	main(void)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   philo_setup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2025/12/28 20:47:34 by natakaha         ###   ########.fr       */
+/*   Updated: 2025/12/31 17:07:19 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 void	init_philo(t_philos *node, char **argv, int tag)
 {
 	node->num = ft_atoi(argv[1]);
-	node->die =  ft_atoi(argv[2]);
+	node->die = ft_atoi(argv[2]);
 	node->eat = ft_atoi(argv[3]);
 	node->slp = ft_atoi(argv[4]);
 	node->tag = tag;
 	if (!argv[5])
-	node->must = -1;
-else
-node->must = ft_atoi(argv[5]);
+		node->must = -1;
+	else
+		node->must = ft_atoi(argv[5]);
 }
 
 t_philos	*setup_philos(int n, char **argv)
 {
 	t_philos	*lst;
 	int			i;
-	
+
 	if (n == 0)
-	return (NULL);
+		return (NULL);
 	lst = (t_philos *)ft_calloc(sizeof(t_philos), n + 1);
 	if (!lst)
-	return (NULL);
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{
@@ -64,11 +64,11 @@ pthread_mutex_t	*setup_mutex(int n)
 
 t_philos	*set_philo_fork(int n, char **argv)
 {
-	t_philos 		*philos;
+	t_philos		*philos;
 	pthread_mutex_t	*forks;
 	int				i;
 
-	philos = setup_philos(n , argv);
+	philos = setup_philos(n, argv);
 	forks = setup_mutex(n);
 	i = 0;
 	while (i < n)
@@ -102,31 +102,31 @@ int	create_and_join(int n, t_philos *philo, void *(*f)(void *))
 
 /*tester*/
 
-//void	*hello_world(void *arg)
-//{
-//	t_philos	philo;
+void	*hello_world(void *arg)
+{
+	t_philos	philo;
 
-//	philo = *(t_philos *)arg;
-//	while (timer() < philo.tag * 100)
-//		;
-//	ft_putstr_fd("I am", 1);
-//	ft_putnbr_fd(philo.tag, 1);
-//	ft_putendl_fd("th philosopher", 1);
-//	return (NULL);
-//}
+	philo = *(t_philos *)arg;
+	while (timer() < philo.tag * 100)
+		;
+	ft_putstr_fd("I am", 1);
+	ft_putnbr_fd(philo.tag, 1);
+	ft_putendl_fd("th philosopher", 1);
+	return (NULL);
+}
 
-//int	main(int argc, char **argv)
-//{
-//	int			i;
-//	t_philos	*philo;
+int	main(int argc, char **argv)
+{
+	int			i;
+	t_philos	*philo;
 
-//	if (argc != 5 && argc != 6)
-//		return (ft_putendl_fd("invalid arg number", 2), 1);
-//	i = ft_atoi(argv[1]);
-//	philo = set_philo_fork(7, argv);
-//	if (!philo)
-//		return (1);
-//	if (create_and_join(i, philo, hello_world) == FAILUER)
-//		return (1);
-//	return (0);
-//}
+	if (argc != 5 && argc != 6)
+		return (ft_putendl_fd("invalid arg number", 2), 1);
+	i = ft_atoi(argv[1]);
+	philo = set_philo_fork(i, argv);
+	if (!philo)
+		return (1);
+	if (create_and_join(i, philo, alg_manage) == FAILUER)
+		return (1);
+	return (0);
+}
