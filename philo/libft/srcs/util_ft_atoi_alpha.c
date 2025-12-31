@@ -48,12 +48,12 @@ int	ft_atoi_alpha(const char *nptr)
 	return (atoi);
 }
 
-int	ft_putchar_fd(char c, int fd)
+int	ft_putchar_int(char c, int fd)
 {
 	return (write(fd, &c, 1));
 }
 
-int	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_int(char *s, int fd)
 {
 	return (write(fd, s, ft_strlen(s)));
 }

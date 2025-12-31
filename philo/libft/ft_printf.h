@@ -109,8 +109,8 @@ char	*ft_itoa(int n);
 char	*ft_itoa_unsigned(unsigned int n);
 char	*digit_allocate_unsigned(unsigned int n, char *itoa, size_t index);
 
-int		ft_putchar_fd(char c, int fd);
-int		ft_putstr_fd(char *s, int fd);
+int		ft_putchar_int(char c, int fd);
+int		ft_putstr_int(char *s, int fd);
 int		ft_atoi_alpha(const char *nptr);
 
 #endif

@@ -2,8 +2,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -Ilibft -Llibft -lft
 NAME = philo
-SRCS = test.c\
-	   utils_philos.c
+SRCS = srcs/philo_setup.c\
+	   srcs/philo_gettime.c\
+	   srcs/philo_alg.c\
 
 LIBFT_A = libft/libft.a
 OBJS = $(SRCS:.c=.o)

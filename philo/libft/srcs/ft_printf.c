@@ -20,9 +20,9 @@ static int	display_percent(size_t pindex,
 	charcount = 0;
 	if (flaglist[pindex].format != 'c'
 		&& flaglist[pindex].format != '%')
-		charcount = ft_putstr_fd(arglist[pindex], 1);
+		charcount = ft_putstr_int(arglist[pindex], 1);
 	else if (flaglist[pindex].format == '%')
-		charcount = ft_putchar_fd(arglist[pindex][0], 1);
+		charcount = ft_putchar_int(arglist[pindex][0], 1);
 	else
 		charcount = display_c(arglist[pindex], flaglist[pindex]);
 	return (charcount);
@@ -48,7 +48,7 @@ static int	display_and_count(const char *format,
 			pindex++;
 		}
 		else
-			charcount = ft_putchar_fd(*format++, 1);
+			charcount = ft_putchar_int(*format++, 1);
 		if (charcount < 0)
 			break ;
 		sum += charcount;
@@ -80,12 +80,12 @@ int	ft_printf(const char *format, ...)
 	return (sum);
 }
 
-#include <stdio.h>
+//#include <stdio.h>
 
-int main(void)
-{
-	ft_printf("abcdeavoh%-10.3s   fiuhu\n", "10sdfghj");
-}
+//int main(void)
+//{
+//	ft_printf("abcdeavoh%-10.3s   fiuhu\n", "10sdfghj");
+//}
 
 //int	main(void)
 //{

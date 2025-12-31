@@ -40,12 +40,12 @@ static int	display_c_minus(char *arg, t_flag flag)
 	size_t	count;
 
 	count = 0;
-	if (ft_putchar_fd(arg[0], 1) < 0)
+	if (ft_putchar_int(arg[0], 1) < 0)
 		return (-1);
 	count++;
 	while (count < flag.width)
 	{
-		if (ft_putchar_fd(' ', 1) < 0)
+		if (ft_putchar_int(' ', 1) < 0)
 			return (-1);
 		count++;
 	}
@@ -59,11 +59,11 @@ static int	display_c_no_minus(char *arg, t_flag flag)
 	count = 0;
 	while (count + 1 < flag.width)
 	{
-		if (ft_putchar_fd(' ', 1) < 0)
+		if (ft_putchar_int(' ', 1) < 0)
 			return (-1);
 		count++;
 	}
-	if (ft_putchar_fd(arg[0], 1) < 0)
+	if (ft_putchar_int(arg[0], 1) < 0)
 		return (-1);
 	count++;
 	return (count);

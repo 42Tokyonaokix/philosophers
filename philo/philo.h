@@ -14,19 +14,35 @@
 # define PHILO_H
 
 # include <pthread.h>
+#include <sys/time.h>
 # include "libft/libft.h"
+# include "libft/get_next_line.h"
+# include "libft/ft_printf.h"
+
+# define FAILUER -1
+# define SUCCESS 1 
 
 typedef struct	s_philos
 {
-	pthread_t			tag;
-	int
+	pthread_t		thread;
+	int				tag;
+	int				num;
+	int				die;
+	int				eat;
+	int				slp;
+	int				must;
+	pthread_mutex_t	*left;	
+	pthread_mutex_t	*right;	
 }	t_philos;
 
 
-/*utils_philo*/
-t_philos	*p_lstnew(pthread_t tag);
-void		p_lstadd_back(t_philos **lst, t_philos *new);
-void		p_lstclear(t_philos **lst);
-t_philos	*p_create_(int	n);
+/*philo_setup*/
+void			collect_info(t_philos *node, char **argv);
+t_philos		*setup_philos(int n, char **argv);
+pthread_mutex_t	*setup_mutex(int n);
+t_philos		*set_philo_fork(int n, char **argv);
+
+/*philo_gettime*/
+int	timer(void);
 
 #endif
