@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 17:24:44 by natakaha          #+#    #+#             */
-/*   Updated: 2025/12/31 18:32:38 by natakaha         ###   ########.fr       */
+/*   Updated: 2025/12/31 21:58:34 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	have_a_fork(t_philos philo,
 int	print_state(int time, int tag, char *str)
 {
 	pthread_mutex_t	*mic;
+	static int		flag;
 
+	if (flag == DEATH)
+		return (FAILUER);
 	mic = microphone();
 	if (!mic)
 		return (FAILUER);
@@ -50,5 +53,10 @@ int	print_state(int time, int tag, char *str)
 		return (FAILUER);
 	ft_printf("timestamp_in_%d %d %s\n", time, tag, str);
 	pthread_mutex_unlock(mic);
-	return (SUCCESS);
+	if (ft_strncmp(str, "died", 5))
+		return (SUCCESS);
+	pthread_mutex_destroy(mic);
+	flag = DEATH;
+	return (FAILUER);
 }
+

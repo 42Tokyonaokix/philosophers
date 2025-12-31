@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2025/12/31 18:32:47 by natakaha         ###   ########.fr       */
+/*   Updated: 2025/12/31 21:58:05 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 # define PHILO_H
 
 # include <pthread.h>
-#include <sys/time.h>
+# include <sys/time.h>
 # include "libft/libft.h"
 # include "libft/get_next_line.h"
 # include "libft/ft_printf.h"
 
 # define FAILUER -1
 # define SUCCESS 1
+# define EATING -2
+# define CLEAR -3
+# define DEATH -4
 
-typedef struct	s_philos
+typedef struct s_philos
 {
 	pthread_t		thread;
 	int				tag;
@@ -31,6 +34,7 @@ typedef struct	s_philos
 	int				eat;
 	int				slp;
 	int				must;
+	int				eat_n;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 }	t_philos;
@@ -43,11 +47,11 @@ t_philos		*set_philo_fork(int n, char **argv);
 
 /*philo_gettime*/
 int				timer(void);
-int				waiting(int now, int time);
+int				waiting(int start, int now, int time);
 void			*alg_manage(void *arg);
 
 /*philo_alfg*/
-int				philos_eat(t_philos philo,
+int				philos_eat(t_philos *philo,
 					pthread_mutex_t *first,
 					pthread_mutex_t *next);
 
@@ -56,5 +60,6 @@ int				print_state(int time, int tag, char *str);
 int				have_a_fork(t_philos philo,
 					pthread_mutex_t *first,
 					pthread_mutex_t *next);
+int				philos_sleep_think(t_philos philo, int start);
 
 #endif

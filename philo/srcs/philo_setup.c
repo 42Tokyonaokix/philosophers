@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2025/12/31 17:07:19 by natakaha         ###   ########.fr       */
+/*   Updated: 2025/12/31 21:40:08 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_philo(t_philos *node, char **argv, int tag)
 	node->eat = ft_atoi(argv[3]);
 	node->slp = ft_atoi(argv[4]);
 	node->tag = tag;
+	node->eat_n = 0;
 	if (!argv[5])
 		node->must = -1;
 	else
