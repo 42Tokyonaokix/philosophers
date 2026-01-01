@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 10:00:14 by natakaha          #+#    #+#             */
-/*   Updated: 2025/12/31 21:57:23 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/01 23:03:11 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	*alg_manage(void *arg)
 {
 	t_philos	philo;
-	int			i;
 	int			death;
 
 	philo = *(t_philos *)arg;
-	i = 0;
 	while (timer() < (philo.tag % 2))
 		;
 	while (true)

@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 08:36:33 by natakaha          #+#    #+#             */
-/*   Updated: 2025/12/31 20:42:40 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/01 23:05:18 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	waiting(int death, int now, int time)
 {
 	while (timer() - now < time)
 	{
-		if (death >= 0 && timer() - now >= death)
+		if (death >= 0 && timer() >= death)
 			return (DEATH);
 	}
 	return (now + time);
