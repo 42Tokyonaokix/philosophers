@@ -4,7 +4,7 @@ LIBFLAGS = -Ilibft -Llibft -lft
 NAME = philo
 SRCS = srcs/philo_setup.c\
 	   srcs/philo_gettime.c\
-	   srcs/philo_alg.c\
+	   srcs/philo_life.c\
 	   srcs/philo_pthread.c\
 
 LIBFT_A = libft/libft.a

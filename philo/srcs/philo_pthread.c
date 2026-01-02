@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 17:24:44 by natakaha          #+#    #+#             */
-/*   Updated: 2025/12/31 21:58:34 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/02 07:28:38 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ int	print_state(int time, int tag, char *str)
 	flag = DEATH;
 	return (FAILUER);
 }
-

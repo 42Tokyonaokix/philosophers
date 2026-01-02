@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2025/12/31 21:40:08 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/02 07:39:54 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,31 +103,15 @@ int	create_and_join(int n, t_philos *philo, void *(*f)(void *))
 
 /*tester*/
 
-void	*hello_world(void *arg)
-{
-	t_philos	philo;
+//void	*hello_world(void *arg)
+//{
+//	t_philos	philo;
 
-	philo = *(t_philos *)arg;
-	while (timer() < philo.tag * 100)
-		;
-	ft_putstr_fd("I am", 1);
-	ft_putnbr_fd(philo.tag, 1);
-	ft_putendl_fd("th philosopher", 1);
-	return (NULL);
-}
-
-int	main(int argc, char **argv)
-{
-	int			i;
-	t_philos	*philo;
-
-	if (argc != 5 && argc != 6)
-		return (ft_putendl_fd("invalid arg number", 2), 1);
-	i = ft_atoi(argv[1]);
-	philo = set_philo_fork(i, argv);
-	if (!philo)
-		return (1);
-	if (create_and_join(i, philo, alg_manage) == FAILUER)
-		return (1);
-	return (0);
-}
+//	philo = *(t_philos *)arg;
+//	while (timer() < philo.tag * 100)
+//		;
+//	ft_putstr_fd("I am", 1);
+//	ft_putnbr_fd(philo.tag, 1);
+//	ft_putendl_fd("th philosopher", 1);
+//	return (NULL);
+//}
