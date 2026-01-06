@@ -6,43 +6,55 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/02 07:39:54 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/06 22:48:05 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	init_philo(t_philos *node, char **argv, int tag)
+int	init_philo(t_philos *node, char **argv, int i)
 {
 	node->num = ft_atoi(argv[1]);
 	node->die = ft_atoi(argv[2]);
 	node->eat = ft_atoi(argv[3]);
 	node->slp = ft_atoi(argv[4]);
-	node->tag = tag;
+	node->tag = i + 1;
 	node->eat_n = 0;
 	if (!argv[5])
 		node->must = -1;
 	else
+	{
+		if (ft_atoi(argv[5]) < 0)
+			return (FAILUER);
 		node->must = ft_atoi(argv[5]);
+	}
+	if (node->num < 0 || node->die < 0
+		|| node->eat < 0 || node->slp < 0)
+		return (FAILUER);
+	return (SUCCESS);
 }
 
 t_philos	*setup_philos(int n, char **argv)
 {
-	t_philos	*lst;
+	t_philos	*philos;
 	int			i;
 
 	if (n == 0)
 		return (NULL);
-	lst = (t_philos *)ft_calloc(sizeof(t_philos), n + 1);
-	if (!lst)
+	philos = (t_philos *)ft_calloc(sizeof(t_philos), n + 1);
+	if (!philos)
 		return (NULL);
 	i = 0;
 	while (i < n)
 	{
-		init_philo(&lst[i], argv, i);
+		if (init_philo(&philos[i], argv, i) == FAILUER)
+		{
+			ft_putendl_fd("numbers less than 0", 2);
+			return (free(philos), NULL);
+		}
 		i++;
 	}
-	return (lst);
+	return (philos);
 }
 
 pthread_mutex_t	*setup_mutex(int n)
@@ -71,6 +83,8 @@ t_philos	*set_philo_fork(int n, char **argv)
 
 	philos = setup_philos(n, argv);
 	forks = setup_mutex(n);
+	if (!philos || !forks)
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{

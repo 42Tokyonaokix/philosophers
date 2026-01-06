@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 08:36:33 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/02 07:39:58 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/06 23:01:22 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,24 @@ int	death_inform(int i)
 	return (death);
 }
 
+void	*is_living(void *arg)
+{
+	t_philos	*philo;
+
+	philo = (t_philos *)arg;
+	while (true)
+	{
+		if (0 < philo->death_time && philo->death_time < timer())
+			death_inform(DEATH);
+		if (philo->death_time == EATING)
+			continue ;
+		if (death_inform(0) == DEATH)
+			return (NULL);
+		if (philo->must == CLEAR)
+			return (NULL);
+	}
+}
+
 int	waiting(int now, int time)
 {
 	while (timer() - now < time)
@@ -51,8 +69,6 @@ int	waiting(int now, int time)
 	}
 	return (now + time);
 }
-
-
 
 //int	main(void)
 //{
