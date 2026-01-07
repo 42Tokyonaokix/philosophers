@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/06 22:52:33 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/07 00:21:16 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <pthread.h>
+# include <unistd.h>
 # include <sys/time.h>
 # include "libft/libft.h"
 # include "libft/get_next_line.h"
@@ -64,7 +65,7 @@ int				philos_think(t_philos philo);
 
 /*philo_pthread*/
 int				print_state(int time, int tag, char *str);
-int				have_a_fork(t_philos philo,
+int				have_forks(t_philos philo,
 					pthread_mutex_t *first,
 					pthread_mutex_t *next);
 int				philos_sleep_think(t_philos philo, int start);

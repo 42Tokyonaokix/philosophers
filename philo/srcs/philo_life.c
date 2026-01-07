@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 10:00:14 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/06 23:11:56 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/07 00:38:53 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*life_manage(void *arg)
 	philo = *(t_philos *)arg;
 	if (pthread_create(&philo.manager, NULL, is_living, &philo))
 		return (NULL);
-	while (timer() < (philo.tag % 2))
+	while (timer() < ((philo.tag % 2) * 50))
 		;
 	while (true)
 	{
@@ -31,7 +31,7 @@ void	*life_manage(void *arg)
 		if (flag == FAILUER)
 			break ;
 		else if (flag == CLEAR)
-			return (NULL);
+			break ;
 		if (philos_sleep(philo) == FAILUER
 			|| philos_think(philo) == FAILUER)
 			break ;
@@ -47,16 +47,17 @@ int	philos_eat(t_philos *philo,
 
 	if (philo->must == 0)
 		return (CLEAR);
-	if (have_a_fork(*philo, first, next) == FAILUER)
+	if (have_forks(*philo, first, next) == FAILUER)
 		return (FAILUER);
 	philo->death_time = EATING;
 	now = timer();
-	if (print_state(now, philo->tag, "is eating") == FAILUER)
-		return (FAILUER);
+	print_state(now, philo->tag, "is eating");
 	philo->eat_n++;
 	now = waiting(now, philo->eat);
 	pthread_mutex_unlock(first);
 	pthread_mutex_unlock(next);
+	if (now == DEATH)
+		return (FAILUER);
 	philo->death_time = timer() + philo->die;
 	if (philo->must >= 0 && philo->eat_n >= philo->must)
 	{

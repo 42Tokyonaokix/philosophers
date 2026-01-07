@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 17:24:44 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/06 23:13:19 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/07 00:46:28 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,18 @@ static pthread_mutex_t	*microphone(void)
 	return (mic);
 }
 
-int	have_a_fork(t_philos philo,
+int	have_forks(t_philos philo,
 	pthread_mutex_t *first,
 	pthread_mutex_t *next)
 {
 	if (!pthread_mutex_lock(first))
 	{
-		if (print_state(timer(), philo.tag, "has taken a fork") == FAILUER)
-			return (FAILUER);
-		if (pthread_mutex_lock(next))
-			return (FAILUER);
-		if (print_state(timer(), philo.tag, "has taken a fork") == FAILUER)
-			return (FAILUER);
+		print_state(timer(), philo.tag, "has taken a fork");
+		pthread_mutex_lock(next);
+		print_state(timer(), philo.tag, "has taken a fork");
+		return (SUCCESS);
 	}
-	return (SUCCESS);
+	return (FAILUER);
 }
 
 int	print_state(int time, int tag, char *str)
@@ -50,12 +48,13 @@ int	print_state(int time, int tag, char *str)
 	if (pthread_mutex_lock(mic))
 		return (FAILUER);
 	if (flag == DEATH)
+	{
+		pthread_mutex_unlock(mic);
 		return (FAILUER);
+	}
 	ft_printf("timestamp_in_%d %d %s\n", time, tag, str);
+	if (!ft_strncmp(str, "died", 5))
+		flag = DEATH;
 	pthread_mutex_unlock(mic);
-	if (ft_strncmp(str, "died", 5))
-		return (SUCCESS);
-	pthread_mutex_destroy(mic);
-	flag = DEATH;
-	return (FAILUER);
+	return (SUCCESS);
 }

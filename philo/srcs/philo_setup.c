@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/06 22:48:05 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/06 23:44:31 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	init_philo(t_philos *node, char **argv, int i)
 {
 	node->num = ft_atoi(argv[1]);
 	node->die = ft_atoi(argv[2]);
+	node->death_time = node->die;
 	node->eat = ft_atoi(argv[3]);
 	node->slp = ft_atoi(argv[4]);
 	node->tag = i + 1;
