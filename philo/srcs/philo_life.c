@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 10:00:14 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 19:30:31 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 21:40:32 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,21 @@ void	*life_manage(void *arg)
 	if ((!(philo.num % 2) && !(philo.tag % 2))
 		|| ((philo.num % 2) && (!(philo.tag % 2) || !(philo.num - philo.tag))))
 		if (philos_think(philo) == FAILUER)
-			return (NULL);
+			return ((void)pthread_join(philo.manager, NULL), NULL);
 	while (true)
 	{
 		if (!(philo.tag % 2))
 			flag = philos_eat(&philo, philo.left, philo.right);
 		else
 			flag = philos_eat(&philo, philo.right, philo.left);
+		if (flag == CLEAR)
+			print_state(0, NULL);
 		if (flag == FAILUER || flag == CLEAR
 			|| philos_sleep(philo) == FAILUER
 			|| philos_think(philo) == FAILUER)
 			break ;
 	}
-	return (NULL);
+	return ((void)pthread_join(philo.manager, NULL), NULL);
 }
 
 int	philos_eat(t_philos *philo,

@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 17:24:44 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 18:33:28 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 21:38:40 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	print_state(int tag, char *str)
 		return (FAILUER);
 	if (pthread_mutex_lock(mic))
 		return (FAILUER);
+	if (!tag)
+		flag = DEATH;
 	if (flag == DEATH)
 	{
 		pthread_mutex_unlock(mic);
@@ -61,16 +63,18 @@ int	print_state(int tag, char *str)
 
 int	main(int argc, char **argv)
 {
-	int			i;
-	t_philos	*philo;
+	int				i;
+	t_philos		*philo;
+	pthread_mutex_t	*forks;
 
 	if (argc != 5 && argc != 6)
 		return (ft_putendl_fd("invalid arg number", 2), 1);
 	i = ft_atoi(argv[1]);
-	philo = set_philo_fork(i, argv);
+	forks = setup_mutex(i);
+	philo = set_philo_fork(i, argv, forks);
 	if (!philo)
 		return (1);
-	if (create_and_join(i, philo, life_manage) == FAILUER)
+	if (create_and_join(i, philo, life_manage, forks) == FAILUER)
 		return (1);
 	return (0);
 }

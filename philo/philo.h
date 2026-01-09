@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 20:57:35 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 21:17:01 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ typedef struct s_philos
 /*philo_setup*/
 t_philos		*setup_philos(int n, char **argv);
 pthread_mutex_t	*setup_mutex(int n);
-t_philos		*set_philo_fork(int n, char **argv);
-int				create_and_join(int n, t_philos *philo, void *(*f)(void *));
+t_philos		*set_philo_fork(int n, char **argv, pthread_mutex_t *forks);
+int				create_and_join(int n, t_philos *philo, void *(*f)(void *),
+					pthread_mutex_t *forks);
 int				init_philo(t_philos *node, char **argv, int i);
 
 /*philo_gettime*/

@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 19:14:35 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 21:43:59 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int	init_philo(t_philos *node, char **argv, int i)
 			return (FAILUER);
 		node->must = ft_atoi(argv[5]);
 	}
-	if (node->num < 0 || node->die < 0
-		|| node->eat < 0 || node->slp < 0)
+	if (node->num <= 1 || node->die < 0 || node->eat < 0 || node->slp < 0)
 		return (FAILUER);
 	return (SUCCESS);
 }
@@ -55,7 +54,7 @@ t_philos	*setup_philos(int n, char **argv)
 	{
 		if (init_philo(&philos[i], argv, i) == FAILUER)
 		{
-			ft_putendl_fd("numbers less than 0", 2);
+			ft_putendl_fd("invlalid argument", 2);
 			return (free(philos), NULL);
 		}
 		i++;
@@ -81,17 +80,15 @@ pthread_mutex_t	*setup_mutex(int n)
 	return (forks);
 }
 
-t_philos	*set_philo_fork(int n, char **argv)
+t_philos	*set_philo_fork(int n, char **argv, pthread_mutex_t *forks)
 {
-	t_philos		*philos;
-	pthread_mutex_t	*forks;
-	int				i;
+	t_philos	*philos;
+	int			i;
 
 	philos = setup_philos(n, argv);
-	forks = setup_mutex(n);
 	microphone();
 	timer();
-	if (!philos || !forks)
+	if (!philos)
 		return (NULL);
 	i = 0;
 	while (i < n)
@@ -106,7 +103,8 @@ t_philos	*set_philo_fork(int n, char **argv)
 	return (philos);
 }
 
-int	create_and_join(int n, t_philos *philo, void *(*f)(void *))
+int	create_and_join(int n, t_philos *philo, void *(*f)(void *),
+		pthread_mutex_t *forks)
 {
 	int	i;
 
@@ -120,12 +118,19 @@ int	create_and_join(int n, t_philos *philo, void *(*f)(void *))
 	i = 0;
 	while (i < n)
 		pthread_join(philo[i++].thread, NULL);
+	while (i--)
+		pthread_mutex_destroy(&forks[i]);
+	pthread_mutex_destroy(microphone());
+	free(philo);
+	free(forks);
+	free(microphone());
+	(void)forks;
 	return (SUCCESS);
 }
 
 /*tester*/
 
-//void	*hello_world(void *arg)
+// void	*hello_world(void *arg)
 //{
 //	t_philos	philo;
 
