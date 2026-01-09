@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/07 00:21:16 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:10:40 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,19 @@ t_philos		*setup_philos(int n, char **argv);
 pthread_mutex_t	*setup_mutex(int n);
 t_philos		*set_philo_fork(int n, char **argv);
 int				create_and_join(int n, t_philos *philo, void *(*f)(void *));
+int				init_philo(t_philos *node, char **argv, int i);
+
 
 /*philo_gettime*/
+pthread_mutex_t	*microphone(void);
 int				timer(void);
 int				waiting(int now, int time);
 int				death_inform(int i);
 void			*is_living(void *arg);
 
 
-/*philo_alfg*/
-void			*alg_manage(void *arg);
+/*philo_life*/
+void			*life_manage(void *arg);
 int				philos_eat(t_philos *philo,
 					pthread_mutex_t *first,
 					pthread_mutex_t *next);
@@ -64,13 +67,12 @@ int				philos_sleep(t_philos philo);
 int				philos_think(t_philos philo);
 
 /*philo_pthread*/
-int				print_state(int time, int tag, char *str);
+int				print_state(int tag, char *str);
 int				have_forks(t_philos philo,
 					pthread_mutex_t *first,
 					pthread_mutex_t *next);
 int				philos_sleep_think(t_philos philo, int start);
+int				count_eating(t_philos philo, int flag);
 
-/*philo_init*/
-int				init_philo(t_philos *node, char **argv, int i);
 
 #endif

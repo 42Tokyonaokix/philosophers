@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 08:36:33 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/07 00:33:42 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:04:25 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ void	*is_living(void *arg)
 	{
 		if (death_inform(0) == DEATH)
 			return (NULL);
-		if (0 < philo->death_time && philo->death_time < timer())
+		if (0 < philo->death_time
+			&& philo->death_time < timer()
+			&& 0 < philo->death_time)
 		{
-			print_state(timer(), philo->tag, "died");
+			print_state(philo->tag, "died");
 			death_inform(DEATH);
 		}
 		if (philo->must == CLEAR)
@@ -69,7 +71,7 @@ int	waiting(int now, int time)
 	{
 		if (death_inform(0) == DEATH)
 			return (DEATH);
-		usleep(5);
+		usleep(1);
 	}
 	return (now + time);
 }

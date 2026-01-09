@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 10:00:14 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/07 00:38:53 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:12:34 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,18 @@ void	*life_manage(void *arg)
 	philo = *(t_philos *)arg;
 	if (pthread_create(&philo.manager, NULL, is_living, &philo))
 		return (NULL);
-	while (timer() < ((philo.tag % 2) * 50))
-		;
+	if ((!(philo.num % 2) && !(philo.tag % 2))
+		|| ((philo.num % 2) && (!(philo.tag % 2) || !(philo.num - philo.tag))))
+		if (philos_think(philo) == FAILUER)
+			return (NULL);
 	while (true)
 	{
 		if (!(philo.tag % 2))
 			flag = philos_eat(&philo, philo.left, philo.right);
 		else
 			flag = philos_eat(&philo, philo.right, philo.left);
-		if (flag == FAILUER)
-			break ;
-		else if (flag == CLEAR)
-			break ;
-		if (philos_sleep(philo) == FAILUER
+		if (flag == FAILUER || flag == CLEAR
+			|| philos_sleep(philo) == FAILUER
 			|| philos_think(philo) == FAILUER)
 			break ;
 	}
@@ -50,10 +49,10 @@ int	philos_eat(t_philos *philo,
 	if (have_forks(*philo, first, next) == FAILUER)
 		return (FAILUER);
 	philo->death_time = EATING;
-	now = timer();
-	print_state(now, philo->tag, "is eating");
+	print_state(philo->tag, "is eating");
 	philo->eat_n++;
-	now = waiting(now, philo->eat);
+	count_eating(*philo, 1);
+	now = waiting(timer(), philo->eat);
 	pthread_mutex_unlock(first);
 	pthread_mutex_unlock(next);
 	if (now == DEATH)
@@ -72,13 +71,28 @@ int	philos_sleep(t_philos philo)
 	int	now;
 
 	now = timer();
-	if (print_state(now, philo.tag, "is sleeping") == FAILUER)
+	if (print_state(philo.tag, "is sleeping") == FAILUER)
 		return (FAILUER);
 	now = waiting(now, philo.slp);
 	if (now != DEATH)
 		return (now);
-	print_state(timer(), philo.tag, "died");
+	print_state(philo.tag, "died");
 	return (FAILUER);
+}
+
+int	think_alg(t_philos philo)
+{
+	int	time;
+	int	eat;
+
+	eat = count_eating(philo, 0);
+	if (philo.num % 2 && eat % philo.num == philo.tag % philo.num)
+		time = philo.eat * 2 - philo.slp;
+	else
+		time = philo.eat - philo.slp;
+	if (time < 0)
+		time = 0;
+	return (time);
 }
 
 int	philos_think(t_philos philo)
@@ -87,28 +101,12 @@ int	philos_think(t_philos philo)
 	int	thinking_time;
 
 	now = timer();
-	thinking_time = 0;
-	if (print_state(now, philo.tag, "is thinking") == FAILUER)
+	thinking_time = think_alg(philo);
+	if (print_state(philo.tag, "is thinking") == FAILUER)
 		return (FAILUER);
 	now = waiting(now, thinking_time);
 	if (now != DEATH)
 		return (now);
-	print_state(timer(), philo.tag, "died");
+	print_state(philo.tag, "died");
 	return (FAILUER);
-}
-
-int	main(int argc, char **argv)
-{
-	int			i;
-	t_philos	*philo;
-
-	if (argc != 5 && argc != 6)
-		return (ft_putendl_fd("invalid arg number", 2), 1);
-	i = ft_atoi(argv[1]);
-	philo = set_philo_fork(i, argv);
-	if (!philo)
-		return (1);
-	if (create_and_join(i, philo, life_manage) == FAILUER)
-		return (1);
-	return (0);
 }

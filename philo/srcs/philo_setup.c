@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/06 23:44:31 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:58:58 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ t_philos	*set_philo_fork(int n, char **argv)
 
 	philos = setup_philos(n, argv);
 	forks = setup_mutex(n);
+	microphone();
+	timer();
 	if (!philos || !forks)
 		return (NULL);
 	i = 0;
