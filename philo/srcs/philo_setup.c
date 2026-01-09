@@ -6,11 +6,12 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 16:58:58 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:14:35 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+#include <stdio.h>
 
 int	init_philo(t_philos *node, char **argv, int i)
 {
@@ -21,6 +22,10 @@ int	init_philo(t_philos *node, char **argv, int i)
 	node->slp = ft_atoi(argv[4]);
 	node->tag = i + 1;
 	node->eat_n = 0;
+	if (node->tag == node->num)
+		node->group = node->tag / 2;
+	else
+		node->group = (node->tag + 1) / 2;
 	if (!argv[5])
 		node->must = -1;
 	else

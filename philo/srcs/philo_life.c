@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 10:00:14 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 18:12:34 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:30:31 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	philos_eat(t_philos *philo,
 	philo->death_time = EATING;
 	print_state(philo->tag, "is eating");
 	philo->eat_n++;
-	count_eating(*philo, 1);
 	now = waiting(timer(), philo->eat);
 	pthread_mutex_unlock(first);
 	pthread_mutex_unlock(next);
@@ -83,13 +82,20 @@ int	philos_sleep(t_philos philo)
 int	think_alg(t_philos philo)
 {
 	int	time;
-	int	eat;
+	int	group;
 
-	eat = count_eating(philo, 0);
-	if (philo.num % 2 && eat % philo.num == philo.tag % philo.num)
-		time = philo.eat * 2 - philo.slp;
-	else
+	group = philo.num / 2;
+	if (!(philo.num % 2))
 		time = philo.eat - philo.slp;
+	else
+	{
+		if (!philo.eat_n && philo.tag == philo.num)
+			time = philo.eat * 2 - philo.slp;
+		else if (philo.eat_n && philo.group % group == philo.eat_n % group)
+			time = philo.eat * 2 - philo.slp;
+		else
+			time = philo.eat - philo.slp;
+	}
 	if (time < 0)
 		time = 0;
 	return (time);

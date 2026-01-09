@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 17:24:44 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 18:10:28 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:33:28 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,6 @@ int	print_state(int tag, char *str)
 		flag = DEATH;
 	pthread_mutex_unlock(mic);
 	return (SUCCESS);
-}
-
-int	count_eating(t_philos philo, int flag)
-{
-	static int	count;
-	int			turn;
-
-	if (!(philo.num % 2))
-		return (-1);
-	turn = (philo.num - 1) / 2;
-	if (flag)
-		count++;
-	return (count / turn);
 }
 
 int	main(int argc, char **argv)

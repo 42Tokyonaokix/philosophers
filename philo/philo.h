@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 18:10:40 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:52:39 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_philos
 	int				eat;
 	int				slp;
 	int				must;
+	int				group;
 	int				eat_n;
 	pthread_t		manager;
 	int				death_time;
