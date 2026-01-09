@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 02:55:21 by natakaha          #+#    #+#             */
-/*   Updated: 2025/11/10 18:59:50 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/09 20:59:19 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	return (latest);
 }
-
