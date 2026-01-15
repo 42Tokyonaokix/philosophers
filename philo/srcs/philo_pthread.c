@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 17:24:44 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 21:38:40 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/15 17:16:23 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	print_state(int tag, char *str)
 		pthread_mutex_unlock(mic);
 		return (FAILUER);
 	}
-	ft_printf("timestamp_in_%d %d %s\n", timer(), tag, str);
+	printf("timestamp_in_%d %d %s\n", timer(), tag, str);
 	if (!ft_strncmp(str, "died", 5))
 		flag = DEATH;
 	pthread_mutex_unlock(mic);

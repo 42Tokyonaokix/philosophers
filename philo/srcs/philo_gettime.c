@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 08:36:33 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 19:29:05 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/15 17:15:15 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,3 @@ int	waiting(int now, int time)
 	}
 	return (now + time);
 }
-
-//int	main(void)
-//{
-//	ft_printf("%d\n", timer());
-//	usleep(1000);
-//	ft_printf("%d\n", timer());
-//	usleep(1000);
-//	ft_printf("%d\n", timer());
-//	usleep(1000);
-//	ft_printf("%d\n", timer());
-//	usleep(1000);
-//}
