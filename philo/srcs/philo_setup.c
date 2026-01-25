@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:33:04 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/15 17:31:43 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/25 05:57:51 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ t_philos	*set_philo_fork(int n, char **argv, pthread_mutex_t *forks)
 	int			i;
 
 	philos = setup_philos(n, argv);
-	microphone();
-	timer();
 	if (!philos)
 		return (NULL);
 	i = 0;
@@ -100,31 +98,6 @@ t_philos	*set_philo_fork(int n, char **argv, pthread_mutex_t *forks)
 		i++;
 	}
 	return (philos);
-}
-
-int	create_and_join(int n, t_philos *philo, void *(*f)(void *),
-		pthread_mutex_t *forks)
-{
-	int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		if (pthread_create(&philo[i].thread, NULL, f, &philo[i]))
-			return (FAILUER);
-		i++;
-	}
-	i = 0;
-	while (i < n)
-		pthread_join(philo[i++].thread, NULL);
-	while (i--)
-		pthread_mutex_destroy(&forks[i]);
-	pthread_mutex_destroy(microphone());
-	free(philo);
-	free(forks);
-	free(microphone());
-	(void)forks;
-	return (SUCCESS);
 }
 
 /*tester*/

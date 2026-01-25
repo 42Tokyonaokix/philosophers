@@ -6,11 +6,16 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 10:00:14 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/09 21:40:32 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/25 06:22:54 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+static int	philos_eat(t_philos *philo,
+				pthread_mutex_t *first, pthread_mutex_t *next);
+static int	philos_sleep(t_philos philo);
+static int	philos_think(t_philos philo);
 
 void	*life_manage(void *arg)
 {
@@ -40,7 +45,7 @@ void	*life_manage(void *arg)
 	return ((void)pthread_join(philo.manager, NULL), NULL);
 }
 
-int	philos_eat(t_philos *philo,
+static int	philos_eat(t_philos *philo,
 		pthread_mutex_t *first,
 		pthread_mutex_t *next)
 {
@@ -50,7 +55,7 @@ int	philos_eat(t_philos *philo,
 		return (CLEAR);
 	if (have_forks(*philo, first, next) == FAILUER)
 		return (FAILUER);
-	philo->death_time = EATING;
+	philo->death_time = timer() + philo->die;
 	print_state(philo->tag, "is eating");
 	philo->eat_n++;
 	now = waiting(timer(), philo->eat);
@@ -58,7 +63,6 @@ int	philos_eat(t_philos *philo,
 	pthread_mutex_unlock(next);
 	if (now == DEATH)
 		return (FAILUER);
-	philo->death_time = timer() + philo->die;
 	if (philo->must >= 0 && philo->eat_n >= philo->must)
 	{
 		philo->eat_n = CLEAR;
@@ -67,7 +71,7 @@ int	philos_eat(t_philos *philo,
 	return (now);
 }
 
-int	philos_sleep(t_philos philo)
+static int	philos_sleep(t_philos philo)
 {
 	int	now;
 
@@ -81,29 +85,8 @@ int	philos_sleep(t_philos philo)
 	return (FAILUER);
 }
 
-int	think_alg(t_philos philo)
-{
-	int	time;
-	int	group;
 
-	group = philo.num / 2;
-	if (!(philo.num % 2))
-		time = philo.eat - philo.slp;
-	else
-	{
-		if (!philo.eat_n && philo.tag == philo.num)
-			time = philo.eat * 2 - philo.slp;
-		else if (philo.eat_n && philo.group % group == philo.eat_n % group)
-			time = philo.eat * 2 - philo.slp;
-		else
-			time = philo.eat - philo.slp;
-	}
-	if (time < 0)
-		time = 0;
-	return (time);
-}
-
-int	philos_think(t_philos philo)
+static int	philos_think(t_philos philo)
 {
 	int	now;
 	int	thinking_time;

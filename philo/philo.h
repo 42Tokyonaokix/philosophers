@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/15 17:32:29 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/25 06:20:35 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdint.h>
+# include <limits.h>
 # include <string.h>
 # include <stdbool.h>
 # include <pthread.h>
@@ -45,40 +46,41 @@ typedef struct s_philos
 	pthread_mutex_t	*right;
 }					t_philos;
 
-/*philo_setup*/
+/* philo_setup */
 t_philos			*setup_philos(int n, char **argv);
 pthread_mutex_t		*setup_mutex(int n);
 t_philos			*set_philo_fork(int n, char **argv, pthread_mutex_t *forks);
-int					create_and_join(int n, t_philos *philo, void *(*f)(void *),
-						pthread_mutex_t *forks);
 int					init_philo(t_philos *node, char **argv, int i);
 
-/*philo_gettime*/
+/* philo_gettime */
 pthread_mutex_t		*microphone(void);
 int					timer(void);
 int					waiting(int now, int time);
 int					death_inform(int i);
-void				*is_living(void *arg);
 
-/*philo_life*/
+/* philo_life */
 void				*life_manage(void *arg);
-int					philos_eat(t_philos *philo, pthread_mutex_t *first,
-						pthread_mutex_t *next);
-int					philos_sleep(t_philos philo);
-int					philos_think(t_philos philo);
 
-/*philo_pthread*/
+/* philo_pthread */
 int					print_state(int tag, char *str);
-int					have_forks(t_philos philo, pthread_mutex_t *first,
-						pthread_mutex_t *next);
 int					philos_sleep_think(t_philos philo, int start);
 int					count_eating(t_philos philo, int flag);
 
-/*pihlo_utils.c*/
+/* pihlo_utils.c */
 int					ft_strncmp(const char *s1, const char *s2, size_t len);
 void				ft_putendl_fd(char *s, int fd);
 size_t				ft_strlen(const char *s);
 int					ft_atoi(const char *nptr);
 void				*ft_calloc(size_t nmemb, size_t size);
+
+/* life_utils.c */
+int					have_forks(t_philos philo, pthread_mutex_t *first,
+						pthread_mutex_t *next);
+void				*is_living(void *arg);
+int					think_alg(t_philos philo);
+
+/* main.c */
+int					create_and_join(int n, t_philos *philo,
+						pthread_mutex_t *forks);
 
 #endif

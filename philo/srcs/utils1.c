@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/15 17:18:44 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/20 03:17:06 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,26 @@ size_t	ft_strlen(const char *s)
 
 int	ft_atoi(const char *nptr)
 {
-	size_t	count;
-	int		number;
-	int		neg;
+	size_t			count;
+	long long		number;
 
 	count = 0;
-	neg = 1;
 	while (nptr[count] == ' ' || (9 <= nptr[count] && nptr[count] <= 13))
 		count++;
 	if (nptr[count] == '+')
 		count++;
-	else if (nptr[count] == '-')
-	{
-		neg = -1;
-		count++;
-	}
 	number = 0;
 	while ('0' <= nptr[count] && nptr[count] <= '9')
 	{
 		number = number * 10 + (nptr[count] - '0');
+		if (number > INT_MAX)
+			return (-1);
 		count++;
 	}
-	return (number * neg);
+	if (nptr[count] && nptr[count] != ' '
+		&& (nptr[count] < 9 || nptr[count] > 13))
+		return (-1);
+	return ((int)number);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)
