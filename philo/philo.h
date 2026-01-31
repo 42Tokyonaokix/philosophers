@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/25 06:20:35 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/31 15:35:54 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@
 
 # define FAILUER -1
 # define SUCCESS 1
-# define EATING -2
+# define CLOSE 0
 # define CLEAR -3
 # define DEATH -4
 
 typedef struct s_philos
 {
-	pthread_t		thread;
 	int				tag;
 	int				num;
 	int				die;
@@ -40,8 +39,9 @@ typedef struct s_philos
 	int				must;
 	int				group;
 	int				eat_n;
-	pthread_t		manager;
 	int				death_time;
+	pthread_t		thread;
+	pthread_t		manager;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 }					t_philos;
@@ -57,9 +57,11 @@ pthread_mutex_t		*microphone(void);
 int					timer(void);
 int					waiting(int now, int time);
 int					death_inform(int i);
+pthread_mutex_t		*scythe(void);
 
 /* philo_life */
 void				*life_manage(void *arg);
+int					philos_think(t_philos philo);
 
 /* philo_pthread */
 int					print_state(int tag, char *str);
@@ -78,6 +80,7 @@ int					have_forks(t_philos philo, pthread_mutex_t *first,
 						pthread_mutex_t *next);
 void				*is_living(void *arg);
 int					think_alg(t_philos philo);
+int					first_think(t_philos philo);
 
 /* main.c */
 int					create_and_join(int n, t_philos *philo,

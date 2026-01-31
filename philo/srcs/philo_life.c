@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 10:00:14 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/25 06:22:54 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/31 15:00:57 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	philos_eat(t_philos *philo,
 				pthread_mutex_t *first, pthread_mutex_t *next);
 static int	philos_sleep(t_philos philo);
-static int	philos_think(t_philos philo);
 
 void	*life_manage(void *arg)
 {
@@ -25,10 +24,8 @@ void	*life_manage(void *arg)
 	philo = *(t_philos *)arg;
 	if (pthread_create(&philo.manager, NULL, is_living, &philo))
 		return (NULL);
-	if ((!(philo.num % 2) && !(philo.tag % 2))
-		|| ((philo.num % 2) && (!(philo.tag % 2) || !(philo.num - philo.tag))))
-		if (philos_think(philo) == FAILUER)
-			return ((void)pthread_join(philo.manager, NULL), NULL);
+	if (first_think(philo) == FAILUER)
+		return ((void)pthread_join(philo.manager, NULL), NULL);
 	while (true)
 	{
 		if (!(philo.tag % 2))
@@ -36,7 +33,7 @@ void	*life_manage(void *arg)
 		else
 			flag = philos_eat(&philo, philo.right, philo.left);
 		if (flag == CLEAR)
-			print_state(0, NULL);
+			print_state(CLOSE, NULL);
 		if (flag == FAILUER || flag == CLEAR
 			|| philos_sleep(philo) == FAILUER
 			|| philos_think(philo) == FAILUER)
@@ -85,8 +82,7 @@ static int	philos_sleep(t_philos philo)
 	return (FAILUER);
 }
 
-
-static int	philos_think(t_philos philo)
+int	philos_think(t_philos philo)
 {
 	int	now;
 	int	thinking_time;

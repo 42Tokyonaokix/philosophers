@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_gettime.c                                    :+:      :+:    :+:   */
+/*   utils4_gettime.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 08:36:33 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/25 05:46:12 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/31 15:35:30 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,23 @@ int	timer(void)
 	return (t - start);
 }
 
+pthread_mutex_t	*scythe(void)
+{
+	static pthread_mutex_t	*mutex;
+
+	if (!mutex)
+		mutex = setup_mutex(1);
+	return (mutex);
+}
+
 int	death_inform(int i)
 {
 	static int	death = 0;
 
+	pthread_mutex_lock(scythe());
 	if (i == DEATH)
 		death = DEATH;
+	pthread_mutex_unlock(scythe());
 	return (death);
 }
 

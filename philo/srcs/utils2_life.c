@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   life_utils.c                                       :+:      :+:    :+:   */
+/*   utils2_life.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 17:24:44 by natakaha          #+#    #+#             */
-/*   Updated: 2026/01/25 05:55:23 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/01/31 15:01:27 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,19 @@ void	*is_living(void *arg)
 		}
 		if (philo->must == CLEAR)
 			return (NULL);
-		if (philo->death_time == EATING)
-			continue ;
 	}
+}
+
+int	first_think(t_philos philo)
+{
+	int	flag;
+
+	flag = false;
+	if (!(philo.num % 2) && !(philo.tag % 2))
+		flag = true;
+	else if ((philo.num % 2) && (!(philo.tag % 2) || !(philo.num - philo.tag)))
+		flag = true;
+	if (flag == false)
+		return (SUCCESS);
+	return (philos_think(philo));
 }
