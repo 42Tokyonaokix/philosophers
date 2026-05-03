@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 10:19:24 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/03 22:15:50 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_system	*setup_t_system(int *num)
 {
 	t_system	*system;
 
-	system = ft_calloc(1, sizeof(int));
+	system = ft_calloc(1, sizeof(t_system));
 	if (!system)
 		return (NULL);
 	system->num_philos = num[0];
@@ -27,6 +27,8 @@ t_system	*setup_t_system(int *num)
 	system->time_to_eat = num[2];
 	system->time_to_sleep = num[3];
 	system->must_eat_count = num[4];
+	system->ms_zero = get_ms();
+	ft_putnbr_fd(system->ms_zero, 2);
 	if (setup_system_mutex(system) == FAILURE)
 		return (free(system), NULL);
 	return (system);
