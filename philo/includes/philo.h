@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 10:40:54 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/04 06:21:05 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 # include <unistd.h>
 
 # define USLEEP 50
+# define SUCCESS 0
+# define FAILURE 1
+# define FATAL 2
+# define DEATH 4
+# define CONTINUE 8
+# define FULL_OF_EAT 16
 
-typedef enum e_define {
- SUCCESS = 0,
- FAILURE,
- FATAL,
- FULL_OF_EAT,
-}	t_define;
 
 typedef struct s_system {
  int num_philos;
@@ -42,7 +42,7 @@ typedef struct s_system {
  pthread_mutex_t *print_mutex;
  pthread_mutex_t *dead_mutex;
  pthread_mutex_t *state_mutex;
- int is_dead;
+ int philos_state;
  int ms_zero;
 }	t_system;
 
@@ -64,7 +64,7 @@ void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
 void			ft_putnbr_fd(int n, int fd);
-
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
 /* utils.gettime */
 int				get_ms(void);
 int				get_time(int ms_zero);
@@ -105,5 +105,9 @@ int				philo_eat(t_system *system, t_philo *philo);
 int				philo_sleep(t_system *system, t_philo *philo);
 int				philo_think(t_system *system, t_philo *philo);
 void			*philo_monitor(void *arg);
+
+/* app.main */
+void	print_system(t_system *system);
+void	print_philo(t_philo *philo);
 
 #endif

@@ -34,6 +34,7 @@ SRCS = srcs/app/setup.c\
 	   srcs/utils/ft_putstr_fd.c\
 	   srcs/utils/ft_putnbr_fd.c\
 	   srcs/utils/ft_strlen.c\
+	   srcs/utils/ft_strncmp.c\
 
 OBJS = $(SRCS:.c=.o)
 

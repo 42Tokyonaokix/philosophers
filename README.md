@@ -28,7 +28,7 @@ typedef struct s_system {
  pthread_mutex_t *forks;
  pthread_mutex_t *print_mutex;
  pthread_mutex_t *dead_mutex;
- int is_dead;
+ int philos_state;
 }	t_system;
 
 ```

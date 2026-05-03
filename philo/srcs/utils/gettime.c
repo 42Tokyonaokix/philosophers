@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 08:36:33 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 21:59:37 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/03 22:38:04 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	wait_until_time(int ms_zero, int ms_finish, int us_wait)
 		usleep(us_wait);
 		if (ms_now >= ms_finish)
 			return (SUCCESS);
+		ms_now = get_time(ms_zero);
 	}
 }
 

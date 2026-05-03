@@ -6,14 +6,11 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 22:04:22 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/04 06:05:35 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
-
-static void	print_philo(t_philo *philo);
-static void	print_system(t_system *system);
 
 int	main(int argc, char **argv)
 {
@@ -29,12 +26,9 @@ int	main(int argc, char **argv)
 	free(num);
 	if (!system)
 		return (EXIT_FAILURE);
-	print_system(system);
 	philo = setup_t_philo(system);
 	if (!philo)
 		return (free_system(system), EXIT_FAILURE);	
-	print_system(system);
-	print_philo(philo);
 	flag = SUCCESS;
 	flag |= create_threads(system->num_philos, philo_life_manage, philo_monitor, philo);
 	flag |= free_system(system);
@@ -44,7 +38,7 @@ int	main(int argc, char **argv)
 	return (EXIT_SUCCESS);	
 }
 
-static void	print_system(t_system *system)
+void	print_system(t_system *system)
 {
 	printf("num_philos: %d\n", system->num_philos);
 	printf("time_to_die: %d\n", system->time_to_die);
@@ -58,7 +52,7 @@ static void	print_system(t_system *system)
 	printf("state_mutex: %p\n", system->state_mutex);
 }
 
-static void	print_philo(t_philo *philo)
+void	print_philo(t_philo *philo)
 {
 	printf("id: %d\n", philo->id);
 	printf("last_meal_time: %ld\n", philo->last_meal_time);

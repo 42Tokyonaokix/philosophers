@@ -13,7 +13,7 @@
 #include "../../includes/philo.h"
 
 static int	ms_thinking_time(t_system *system, t_philo *philo);
-static int	ms_fix(int ms_time);
+static int	ms_fix(int ms_time, t_system *system);
 
 int	philo_think(t_system *system, t_philo *philo)
 {
@@ -43,16 +43,18 @@ static int	ms_thinking_time(t_system *system, t_philo *philo)
 	slp_time = system->time_to_sleep;
 	num_groups = (system->num_philos + 1) / 2;
 	group_id = ((philo->id - 1) / 2 + 1) % num_groups;
+	if (philo->meals_eaten == 0 && philo->id % 2 == 1)
+		return (0);
 	if (system->num_philos % 2 == 0)
-		return (ms_fix(eat_time - slp_time));
+		return (ms_fix(eat_time - slp_time, system));
 	if (group_id == eat_time % num_groups)
-		return (ms_fix(eat_time * 2 - slp_time));
-	return (ms_fix(eat_time - slp_time));
+		return (ms_fix(eat_time * 2 - slp_time, system));
+	return (ms_fix(eat_time - slp_time, system));
 }
 
-static int	ms_fix(int ms_time)
+static int	ms_fix(int ms_time, t_system *system)
 {
-	if (ms_time < 0)
-		return (0);
+	if (ms_time < (system->time_to_eat / 2))
+		return (system->time_to_eat / 2);
 	return (ms_time);
 }
