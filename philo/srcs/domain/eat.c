@@ -17,8 +17,6 @@ static int	philo_state_change(t_philo *philo, void *arg);
 
 int	philo_eat(t_system *system, t_philo *philo)
 {
-	int flag;
-
 	if (system->must_eat_count == 0)
 		return (FULL_OF_EAT);
 	if (philo->id % 2 == 0)

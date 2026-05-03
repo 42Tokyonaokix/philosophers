@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 08:01:15 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/03 10:41:29 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ int	philo_forks_do(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *next
 	if (pthread_mutex_lock(first) != SUCCESS)
 		return (FATAL);
 	flag |= philo_mutex_do(philo, system->print_mutex,
-		print_fork, (void *)"has taken a fork");
+		print_str, (void *)"has taken a fork");
 	if (flag == FATAL)
 		return (pthread_mutex_unlock(first), FATAL);
 	if (pthread_mutex_lock(next) != SUCCESS)
 		return (pthread_mutex_unlock(first), FATAL);
 	flag |= philo_mutex_do(philo, system->print_mutex,
-		print_fork, (void *)"has taken a fork");
+		print_str, (void *)"has taken a fork");
 	if (flag == FATAL)
 		return (pthread_forks_unlock(first, next), FATAL);
 	flag |= function(philo);

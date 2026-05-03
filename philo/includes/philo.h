@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 08:19:48 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/03 10:40:54 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,13 @@ int				free_mutex(pthread_mutex_t *mutex, int i);
 pthread_mutex_t	*create_mutex(int n);
 
 /* utils.pthread */
-int				create_threads(int n, void *life_func,
-					void *monitor_func, void *strct);
+int				create_threads(int n, void *life_func(void *), void *monitor_func(void *), void *strct);
 
 /* app.validation */
-int				**validate_argument(int argc, char **argv);
-
+int				*validate_argument(int argc, char **argv);
 
 /* app.setup */
-t_system		*setup_t_system(int **num);
+t_system		*setup_t_system(int *num);
 t_philo			*setup_t_philo(t_system *system);
 int				free_system(t_system *system);
 
@@ -94,18 +92,18 @@ int	philo_mutex_do(t_philo *philo, pthread_mutex_t *mutex,
 int	philo_forks_do(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *next,
 		int function(t_philo *));
 
-
 /* print_base */
-int				print_str(t_philo *philo, char *str);
+int				print_str(t_philo *philo, void *str);
 
 /* print_life */
 int				print_fork(t_philo *philo);
 int				print_eat(t_philo *philo);
 
-/* domain.philo0_life */
+/* domain.life */
 void			*philo_life_manage(void *arg);
-
-/* dmain.philo1_eat */
 int				philo_eat(t_system *system, t_philo *philo);
+int				philo_sleep(t_system *system, t_philo *philo);
+int				philo_think(t_system *system, t_philo *philo);
+void			*philo_monitor(void *arg);
 
 #endif

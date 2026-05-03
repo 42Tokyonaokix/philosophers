@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 08:53:07 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/03 10:19:24 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	setup_system_mutex(t_system *system);
 static int	free_system_mutex(t_system *system);
 
-t_system	*setup_t_system(int **num)
+t_system	*setup_t_system(int *num)
 {
 	t_system	*system;
 

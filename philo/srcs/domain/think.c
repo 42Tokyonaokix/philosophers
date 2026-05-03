@@ -29,7 +29,7 @@ int	philo_think(t_system *system, t_philo *philo)
 		return (FATAL);
 	ms_think = ms_thinking_time(system, philo);
 	wait_until_time(system->ms_zero, ms_start + ms_think, USLEEP);
-	return (flag)
+	return (flag);
 }
 
 static int	ms_thinking_time(t_system *system, t_philo *philo)
