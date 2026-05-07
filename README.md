@@ -157,6 +157,30 @@ OSのスケジュールによる遅延を最小限にするため、gettimeofday
 判定条件： (現在時刻 - last_meal_time) >= time_to_die
 条件が真となった場合、死亡フラグを立てて全スレッドに停止を通知する。
 
+#### 2.3.3 最適な待ち時間 (thinking.c)
+
+This algo defines the two different sleep time.
+
+The one is "eat_time - sleep_time".  It is the basic think_time
+which can make eat_time = sleep_time + think_time. So it enables philos
+to gain eat-and-rest cycles. this cycles sync odds and evens
+because of the sharing forks with next ones.
+
+The other is "eat_time * 2 - sleep_time". When number of philos are odd, 
+the first way has a problem. The last philo cant have a fork 
+because the next one is also has odd id. this irregular think_time happens
+number-of-philos a time. its because every time needs one rest person.
+
+its the time schedule example when ./philo 7 300 90 90
+
+|  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+| --- | --- | --- | --- | --- | --- | --- |
+| eat | t&s | eat | t&s | eat | t&s | t&s |
+| t&s | eat | t&s | eat | t&s | eat | t&s |
+| t&s | t&s | eat | t&s | eat | t&s | eat |
+| eat | t&s | t&s | eat | t&s | eat | t&s |
+| t&s | eat | t&s | t&s | eat | t&s | eat |
+
 # 3.Instructions
 
 ### Compilation
