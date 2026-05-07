@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 10:40:00 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:19:52 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	philo = setup_t_philo(system);
 	if (!philo)
-		return (free_system(system), EXIT_FAILURE);	
+		return (free_system(system), EXIT_FAILURE);
 	flag = SUCCESS;
-	flag |= create_threads(system->num_philos, philo_life_manage, philo_monitor, philo);
+	flag |= create_threads(system->num_philos, philo_life_manage, philo_monitor,
+			philo);
 	free(philo);
 	flag |= execute_bit_value(system->philos_state);
 	flag |= free_system(system);
 	if (flag == FAILURE)
 		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);	
+	return (EXIT_SUCCESS);
 }
 
 void	print_system(t_system *system)
@@ -62,4 +63,17 @@ void	print_philo(t_philo *philo)
 	printf("right_fork: %p\n", philo->right_fork);
 	printf("state_mutex: %p\n", philo->state_mutex);
 	printf("system: %p\n", philo->system);
+}
+
+int	execute_bit_value(int philos_state)
+{
+	if ((philos_state & FATAL) == FATAL)
+		return (FATAL);
+	if ((philos_state & FAILURE) == FAILURE)
+		return (FAILURE);
+	if ((philos_state & DEATH) == DEATH)
+		return (FAILURE);
+	if ((philos_state & FULL_OF_EAT) == FULL_OF_EAT)
+		return (SUCCESS);
+	return (FAILURE);
 }

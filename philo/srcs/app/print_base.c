@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 10:24:35 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:16:48 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	print_str(t_philo *philo, void *ptr)
 
 	str = (char *)ptr;
 	system = philo->system;
-	flag = philo_mutex_do(philo, system->dead_mutex,
-		are_philos_living, system);
+	flag = philo_mutex_do(philo, system->dead_mutex, are_philos_living, system);
 	if (ft_strncmp(str, "died", 5) != 0 && flag != SUCCESS)
 		return (flag);
 	ms_now = get_time(system->ms_zero);

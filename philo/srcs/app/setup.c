@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 09:55:18 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:18:47 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_philo	*setup_t_philo(t_system *system)
 		if (i != system->num_philos - 1)
 			(philo[i]).right_fork = &(system->forks[i + 1]);
 		else
-			(philo[i]).right_fork = &(system->forks[0]);	
+			(philo[i]).right_fork = &(system->forks[0]);
 		i++;
 	}
 	return (philo);
@@ -89,19 +89,6 @@ static int	free_system_mutex(t_system *system)
 	if (system->state_mutex)
 		flag |= free_mutex(system->state_mutex, system->num_philos);
 	return (flag);
-}
-
-int	execute_bit_value(int philos_state)
-{
-	if ((philos_state & FATAL) == FATAL)
-		return (FATAL);
-	if ((philos_state & FAILURE) == FAILURE)
-		return (FAILURE);
-	if ((philos_state & DEATH) == DEATH)
-		return (FAILURE);
-	if ((philos_state & FULL_OF_EAT) == FULL_OF_EAT)
-		return (SUCCESS);
-	return (FAILURE);
 }
 
 int	free_system(t_system *system)

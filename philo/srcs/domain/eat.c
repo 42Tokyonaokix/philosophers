@@ -24,27 +24,27 @@ int	philo_eat(t_system *system, t_philo *philo)
 		return (philo_mutex_do(philo, philo->right_fork, philo_alone, system));
 	if (philo->id % 2 == 0)
 		return (philo_forks_do(philo, philo->left_fork, philo->right_fork,
-			philo_eating));
+				philo_eating));
 	else
 		return (philo_forks_do(philo, philo->right_fork, philo->left_fork,
-			philo_eating));	
+				philo_eating));
 }
 
 static int	philo_eating(t_philo *philo)
 {
-	int 		flag;
+	int			flag;
 	int			ms_start;
 	t_system	*system;
 
 	system = philo->system;
 	flag = SUCCESS;
-	flag |= philo_mutex_do(philo, system->print_mutex,
-		print_str, (void *)"is eating");
+	flag |= philo_mutex_do(philo, system->print_mutex, print_str,
+			(void *)"is eating");
 	if (flag == FATAL)
 		return (FATAL);
 	ms_start = get_time(system->ms_zero);
-	flag |= philo_mutex_do(philo, philo->state_mutex,
-		philo_state_change, (void *)(&ms_start));
+	flag |= philo_mutex_do(philo, philo->state_mutex, philo_state_change,
+			(void *)(&ms_start));
 	wait_until_time(system->ms_zero, ms_start + system->time_to_eat, USLEEP);
 	return (flag);
 }
@@ -66,9 +66,9 @@ static int	philo_alone(t_philo *philo, void *arg)
 
 	system = (t_system *)arg;
 	flag = SUCCESS;
-	flag |=	print_str(philo, (void *)"has taken a fork");
+	flag |= print_str(philo, (void *)"has taken a fork");
 	while (flag == SUCCESS)
-		flag |= philo_mutex_do(philo, system->dead_mutex,
-			are_philos_living, (void *)system);
+		flag |= philo_mutex_do(philo, system->dead_mutex, are_philos_living,
+				(void *)system);
 	return (flag);
-} 
+}

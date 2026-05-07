@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 09:56:12 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:26:19 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 static int	free_threads(pthread_t *thread, int i);
 
-int	create_threads(int n, void *life_func(void *), void *monitor_func(void *), void *strct)
+int	create_threads(int n, void *life_func(void *), void *monitor_func(void *),
+		t_philo *philo)
 {
 	int			i;
 	pthread_t	*thread;
-	t_philo		*philo;
 	int			flag;
-	
+
 	thread = ft_calloc(n + 1, sizeof(pthread_t));
 	if (!thread)
 		return (FAILURE);
-	if (pthread_create(&thread[0], NULL, monitor_func, strct) != SUCCESS)
+	if (pthread_create(&thread[0], NULL, monitor_func, philo) != SUCCESS)
 		return (free(thread), FAILURE);
 	flag = SUCCESS;
 	i = 0;
-	philo = (t_philo *)strct;
 	while (i < n)
 	{
-		if (pthread_create(&thread[i + 1], NULL, life_func, &philo[i]) != SUCCESS)
+		if (pthread_create(&thread[i + 1], NULL, life_func,
+				&philo[i]) != SUCCESS)
 		{
 			flag = FAILURE;
 			break ;

@@ -25,7 +25,7 @@ void	*philo_life_manage(void *arg)
 			return (NULL);
 		if (philo_eat(system, philo) != SUCCESS)
 			return (NULL);
-		if (philo_sleep(system, philo) !=SUCCESS)
+		if (philo_sleep(system, philo) != SUCCESS)
 			return (NULL);
 	}
 }

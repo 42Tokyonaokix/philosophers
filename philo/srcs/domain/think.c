@@ -17,14 +17,14 @@ static int	ms_fix(int ms_time, t_system *system);
 
 int	philo_think(t_system *system, t_philo *philo)
 {
-	int flag;
+	int	flag;
 	int	ms_start;
 	int	ms_think;
 
 	flag = SUCCESS;
 	ms_start = get_time(system->ms_zero);
-	flag |= philo_mutex_do(philo, system->print_mutex,
-		print_str, (void *)"is thinking");
+	flag |= philo_mutex_do(philo, system->print_mutex, print_str,
+			(void *)"is thinking");
 	if (flag == FATAL)
 		return (FATAL);
 	ms_think = ms_thinking_time(system, philo);
@@ -36,7 +36,7 @@ static int	ms_thinking_time(t_system *system, t_philo *philo)
 {
 	int	num_groups;
 	int	group_id;
-	int eat_time;
+	int	eat_time;
 	int	slp_time;
 
 	eat_time = system->time_to_eat;
@@ -57,4 +57,5 @@ static int	ms_fix(int ms_time, t_system *system)
 	if (ms_time < (0))
 		return (0);
 	return (ms_time);
+	(void)system;
 }

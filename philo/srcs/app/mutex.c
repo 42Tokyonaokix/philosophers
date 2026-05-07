@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/04 05:46:53 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:16:04 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	philo_mutex_do(t_philo *philo, pthread_mutex_t *mutex,
 		int function(t_philo *, void *), void *arg)
 {
 	int	flag;
-	
+
 	if (pthread_mutex_lock(mutex) != SUCCESS)
 		return (FATAL);
 	flag = function(philo, arg);
@@ -27,24 +27,24 @@ int	philo_mutex_do(t_philo *philo, pthread_mutex_t *mutex,
 	return (flag);
 }
 
-int	philo_forks_do(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *next,
-		int function(t_philo *))
+int	philo_forks_do(t_philo *philo, pthread_mutex_t *first,
+		pthread_mutex_t *next, int function(t_philo *))
 {
-	int			flag;	
+	int			flag;
 	t_system	*system;
 
 	flag = SUCCESS;
 	system = philo->system;
 	if (pthread_mutex_lock(first) != SUCCESS)
 		return (FATAL);
-	flag |= philo_mutex_do(philo, system->print_mutex,
-		print_str, (void *)"has taken a fork");
+	flag |= philo_mutex_do(philo, system->print_mutex, print_str,
+			(void *)"has taken a fork");
 	if (flag == FATAL)
 		return (pthread_mutex_unlock(first), FATAL);
 	if (pthread_mutex_lock(next) != SUCCESS)
 		return (pthread_mutex_unlock(first), FATAL);
-	flag |= philo_mutex_do(philo, system->print_mutex,
-		print_str, (void *)"has taken a fork");
+	flag |= philo_mutex_do(philo, system->print_mutex, print_str,
+			(void *)"has taken a fork");
 	if (flag == FATAL)
 		return (pthread_forks_unlock(first, next), FATAL);
 	flag |= function(philo);
