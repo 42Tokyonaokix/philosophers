@@ -1,20 +1,16 @@
-*This project has been created as part of the 42 curriculum by <natakaha>.*
+*This project has been created as part of the 42 curriculum by .*
 
 # 1.Description
-本プロジェクトは、古典的な「食事する哲学者」の問題をマルチスレッドプログラ
-ミングを用いて解決するシミュレーションプログラムである。各哲学者はスレッド
-として表現され、共有リソースであるフォーク(ミューテックス)を奪い合いなが
-ら「食べる」「寝る」「考える」のサイクルを繰り返す。
 
+This project is a simulation program that solves the classical "dining philosophers" problem using multi-threaded programming. Each philosopher is represented as a thread, and they repeatedly cycle through "eating," "sleeping," and "thinking" while competing for the shared resource, the fork (mutex).
 
 # 2.Technical Chices
 
 ## 2.1 Data Structure Design
 
-### 2.1.1 t_system
+### 2.1.1 t\_system
 
-シミュレーション全体で共有される読み取り専用のルールと、スレッド間で共有さ
-れるグローバルなリソースを保持する。
+To maintain read-only rules shared across the entire simulation and global resources shared between threads.
 
 ```c
 # include <pthread.h>
@@ -33,27 +29,9 @@ typedef struct s_system {
 
 ```
 
-### 2.1.2 t_philo
+### 2.1.2 t\_philo
 
-各哲学者の固有データと、自分が使用するリソースへの参照を保持する。
-
-```c
-
-typedef struct s_philo {
- int id;
- long last_meal_time;
- int meals_eaten;
- pthread_mutex_t *left_fork;
- pthread_mutex_t *right_fork;
- pthread_mutex_t state_mutex;
- t_system *system;
-} t_philo;
-
-```
-
-### 2.1.2 t_philo
-
-各哲学者の固有データと、自分が使用するリソースへの参照を保持する。
+To maintain the unique data of each philosopher and references to the resources they use.
 
 ```c
 
@@ -69,11 +47,9 @@ typedef struct s_philo {
 
 ```
 
-##
+### 2.1.2 t\_philo
 
-### 2.1.2 t_philo
-
-各哲学者の固有データと、自分が使用するリソースへの参照を保持する。
+To maintain the unique data of each philosopher and references to the resources they use.
 
 ```c
 
@@ -89,34 +65,9 @@ typedef struct s_philo {
 
 ```
 
-## 2.2 同期と並列処理の戦略
+### 2.1.2 t\_philo
 
-### 2.2.1 データレース対策 (Data Race Prevention)
-
-「監視スレッド（読み取り）」と「食事スレッド（書き込み）」が同時に
-last_meal_time にアクセスすることを防ぐため、各哲学者が持つ state_mutex
-を使用する。また、死亡フラグの更新・確認には dead_mutex を、ログ出力の乱れ
-を防ぐには print_mutex を使用する。
-
-### 2.2.2 デッドロック回避 (Deadlock Avoidance)
-
-対称性を崩すため、偶数番号の哲学者の開始時間を usleep でわずかに遅らせる、
-または左右のフォークを取る順番を偶数・奇数で逆にすることで、全員が一斉に片
-方のフォークを持って固まることを防ぐ。
-
-## 2.3 時間管理と監視
-
-### 2.3.1 正確な待機 (ft_usleep)
-
-OSのスケジュールによる遅延を最小限にするため、gettimeofday を使用した高
-精度なルー待機関数を自作する。短い usleep を繰り返しながら、目標時刻まで
-現在時刻を確認し続ける。
-
-#### 2.3.2 監視ロジック (Monitoring)
-
-メインスレッドが全哲学者を巡回し、以下の条件を確認する：
-判定条件： (現在時刻 - last_meal_time) >= time_to_die
-条件が真となった場合、死亡フラグを立てて全スレッドに停止を通知する。
+To maintain the unique data of each philosopher and references to the resources they use.
 
 ```c
 
@@ -132,48 +83,51 @@ typedef struct s_philo {
 
 ```
 
-## 2.2 同期と並列処理の戦略
+## 2.2 Strategies for Synchronization and Parallel Processing
 
-### 2.2.1 データレース対策 (Data Race Prevention)
-「監視スレッド（読み取り）」と「食事スレッド（書き込み）」が同時に
-last_meal_time にアクセスすることを防ぐため、各哲学者が持つ state_mutex
-を使用する。また、死亡フラグの更新・確認には dead_mutex を、ログ出力の乱れ
-を防ぐには print_mutex を使用する。
+### 2.2.1 Data Race Prevention (Data Race Prevention)
 
-### 2.2.2 デッドロック回避 (Deadlock Avoidance)
-対称性を崩すため、偶数番号の哲学者の開始時間を usleep でわずかに遅らせる、
-または左右のフォークを取る順番を偶数・奇数で逆にすることで、全員が一斉に片
-方のフォークを持って固まることを防ぐ。
+To prevent the "monitor thread (reading)" and "dining thread (writing)" from accessing last\_meal\_time simultaneously, the state\_mutex held by each philosopher is used. Additionally, dead\_mutex is used for updating and checking the death flag, and print\_mutex is used to prevent confusion in log output.
 
-## 2.3 時間管理と監視
+### 2.2.2 Deadlock Avoidance
 
-### 2.3.1 正確な待機 (ft_usleep)
-OSのスケジュールによる遅延を最小限にするため、gettimeofday を使用した高
-精度なループ待機関数を自作する。短い usleep を繰り返しながら、目標時刻まで
-現在時刻を確認し続ける。
+To prevent everyone from freezing at the same time with one fork, either slightly delay the start time of philosophers with even numbers using usleep, or reverse the order of taking the left and right forks in an even-odd manner.
 
-#### 2.3.2 監視ロジック (Monitoring)
-メインスレッドが全哲学者を巡回し、以下の条件を確認する：
-判定条件： (現在時刻 - last_meal_time) >= time_to_die
-条件が真となった場合、死亡フラグを立てて全スレッドに停止を通知する。
+## 2.3 Time Management and Monitoring
 
-#### 2.3.3 最適な待ち時間 (thinking.c)
+### 2.3.1 accurate waiting
+
+To minimize delays due to OS scheduling, create a high-precision sleep function using gettimeofday. Continuously check the current time while repeatedly using short usleep until the target time is reached.
+
+#### 2.3.2 Monitoring Logic
+
+Main thread iterates through all philosophers and checks the following conditions: Evaluation criteria: (current time - last\_meal\_time) >= time\_to\_die If the condition is true, it sets the death flag and notifies all threads to stop.
+
+```c
+
+typedef struct s_philo {
+ int id;
+ long last_meal_time;
+ int meals_eaten;
+ pthread_mutex_t *left_fork;
+ pthread_mutex_t *right_fork;
+ pthread_mutex_t state_mutex;
+ t_system *system;
+} t_philo;
+
+```
+
+#### 2.3 2.3.3 Optimal Waiting Time (thinking.c)
 
 This algo defines the two different sleep time.
 
-The one is "eat_time - sleep_time".  It is the basic think_time
-which can make eat_time = sleep_time + think_time. So it enables philos
-to gain eat-and-rest cycles. this cycles sync odds and evens
-because of the sharing forks with next ones.
+The one is "eat\_time - sleep\_time". It is the basic think\_time which can make eat\_time = sleep\_time + think\_time. So it enables philos to gain eat-and-rest cycles. this cycles sync odds and evens because of the sharing forks with next ones.
 
-The other is "eat_time * 2 - sleep_time". When number of philos are odd, 
-the first way has a problem. The last philo cant have a fork 
-because the next one is also has odd id. this irregular think_time happens
-number-of-philos a time. its because every time needs one rest person.
+The other is "eat\_time \* 2 - sleep\_time". When number of philos are odd, the first way has a problem. The last philo cant have a fork because the next one is also has odd id. this irregular think\_time happens number-of-philos a time. its because every time needs one rest person.
 
 its the time schedule example when ./philo 7 300 90 90
 
-|  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 | --- | --- | --- | --- | --- | --- | --- |
 | eat | t&s | eat | t&s | eat | t&s | t&s |
 | t&s | eat | t&s | eat | t&s | eat | t&s |
@@ -185,7 +139,7 @@ its the time schedule example when ./philo 7 300 90 90
 
 ### Compilation
 
-本プロジェクトには `Makefile` が含まれています。ソースコードをコンパイルするには、リポジトリのルートディレクトリで以下のコマンドを実行してください：
+This project includes `Makefile` . To compile the source code, run the following command in the root directory of the repository:
 
 ```bash
 
@@ -193,7 +147,7 @@ make
 
 ```
 
-コンパイル完了後、生成されたphilo事項ファイルを以下の引数とともに実行します。
+After the compilation is complete, the generated philo\_simulation file will be executed with the following arguments.
 
 ```bash
 
@@ -201,13 +155,13 @@ make
 
 ```
 
-- number_of_philoophers: 哲学者の数（＝テーブルにあるフォークの数）。
 
-- time_to_die (ミリ秒): 寿命。前回の食事開始時、またはシミュレーション開始時からこの時間が経過しても次の食事が始まらない場合、その哲学者は餓死します。
-
-- time_to_eat (ミリ秒): 食事にかかる時間。この間、哲学者は2本のフォークを保持し続けます。
-
-- time_to_sleep (ミリ秒): 睡眠にかかる時間。
-
-- [number_of_times_each_philoopher_must_eat] (オプション): 全哲学者がこの指定回数以上食事を終えた場合、シミュレーションが終了します。指定されない場合、誰かが死ぬまでシミュレーションは続きます。
-
+    number\_of\_philosophers: The number of philosophers (= the number of forks on the table).
+    
+*   time\_to\_die (milliseconds): The lifespan. If a philosopher does not start the next meal after the specified time has elapsed since the last meal start time or the start of the simulation, that philosopher will die of starvation.
+    
+*    time\_to\_eat (milliseconds): the time it takes to eat. During this time, the philosopher keeps holding two forks.
+    
+*   time\_to\_sleep (milliseconds): the time it takes to sleep.
+    
+*   \[number\_of\_times\_each\_philosopher\_must\_eat\] (optional): the simulation ends if all philosophers have finished eating at least this many times. if not specified, the simulation continues until someone dies.
