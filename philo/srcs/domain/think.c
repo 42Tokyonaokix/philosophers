@@ -54,7 +54,7 @@ static int	ms_thinking_time(t_system *system, t_philo *philo)
 
 static int	ms_fix(int ms_time, t_system *system)
 {
-	if (ms_time < (system->time_to_eat / 2))
-		return (system->time_to_eat / 2);
+	if (ms_time < (0))
+		return (0);
 	return (ms_time);
 }
