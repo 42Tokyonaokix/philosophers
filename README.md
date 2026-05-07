@@ -121,9 +121,9 @@ typedef struct s_philo {
 
 This algo defines the two different sleep time.
 
-The one is "eat\_time - sleep\_time". It is the basic think\_time which can make eat\_time = sleep\_time + think\_time. So it enables philos to gain eat-and-rest cycles. this cycles sync odds and evens because of the sharing forks with next ones.
+The one is "eat_time - sleep_time". It is the basic think_time which can make eat_time = sleep_time + think_time. So it enables philos to gain eat-and-rest cycles. this cycles sync odds and evens because of the sharing forks with next ones.
 
-The other is "eat\_time \* 2 - sleep\_time". When number of philos are odd, the first way has a problem. The last philo cant have a fork because the next one is also has odd id. this irregular think\_time happens number-of-philos a time. its because every time needs one rest person.
+The other is "eat_time * 2 - sleep_time". When number of philos are odd, the first way has a problem. The last philo cant have a fork because the next one is also has odd id. this irregular think_time happens number-of-philos a time. its because every time needs one rest person.
 
 its the time schedule example when ./philo 7 300 90 90
 
@@ -158,10 +158,10 @@ After the compilation is complete, the generated philo\_simulation file will be 
 
     number\_of\_philosophers: The number of philosophers (= the number of forks on the table).
     
-*   time\_to\_die (milliseconds): The lifespan. If a philosopher does not start the next meal after the specified time has elapsed since the last meal start time or the start of the simulation, that philosopher will die of starvation.
+*   time_to_die (milliseconds): The lifespan. If a philosopher does not start the next meal after the specified time has elapsed since the last meal start time or the start of the simulation, that philosopher will die of starvation.
     
-*    time\_to\_eat (milliseconds): the time it takes to eat. During this time, the philosopher keeps holding two forks.
+*    time_to_eat (milliseconds): the time it takes to eat. During this time, the philosopher keeps holding two forks.
     
-*   time\_to\_sleep (milliseconds): the time it takes to sleep.
+*   time_to_sleep (milliseconds): the time it takes to sleep.
     
-*   \[number\_of\_times\_each\_philosopher\_must\_eat\] (optional): the simulation ends if all philosophers have finished eating at least this many times. if not specified, the simulation continues until someone dies.
+*   [number_of_times_each_philosopher_must_eat] (optional): the simulation ends if all philosophers have finished eating at least this many times. if not specified, the simulation continues until someone dies.
