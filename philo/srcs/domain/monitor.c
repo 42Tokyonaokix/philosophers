@@ -14,7 +14,7 @@
 
 int			philo_state_change(t_philo *philo, void *arg);
 static int	monitoring_philos(t_philo *philo, t_system *system);
-int			is_philo_living(t_philo *philo, void *arg);
+int			change_philo_status(t_philo *philo, void *arg);
 
 void	*philo_monitor(void *arg)
 {
@@ -49,8 +49,8 @@ static int	monitoring_philos(t_philo *philo, t_system *system)
 	i = 0;
 	while (i < num_philos)
 	{
-		flag = philo_mutex_do(&philo[i], philo[i].state_mutex, is_philo_living,
-				(void *)system);
+		flag = philo_mutex_do(&philo[i], philo[i].state_mutex,
+				change_philo_status, (void *)system);
 		if (flag != SUCCESS && flag != FULL_OF_EAT)
 			return (flag);
 		foe_flag &= flag;
@@ -59,7 +59,7 @@ static int	monitoring_philos(t_philo *philo, t_system *system)
 	return (foe_flag);
 }
 
-int	is_philo_living(t_philo *philo, void *arg)
+int	change_philo_status(t_philo *philo, void *arg)
 {
 	t_system	*system;
 	int			ms_now;

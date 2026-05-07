@@ -31,7 +31,31 @@ int	philo_think(t_system *system, t_philo *philo)
 	return (flag);
 }
 
-/*  */
+/* 
+
+This algo defines the two different sleep time.
+
+The one is "eat_time - sleep_time".  It is the basic think_time
+which can make eat_time = sleep_time + think_time. So it enables philos
+to gain eat-and-rest cycles. this cycles sync odds and evens
+because of the sharing forks with next ones.
+
+The other is "eat_time * 2 - sleep_time". When number of philos are odd, 
+the first way has a problem. The last philo cant have a fork 
+because the next one is also has odd id. this irregular think_time happens
+number-of-philos a time. its because every time needs one rest person.
+
+its the time schedule example when ./philo 7 300 90 90
+
+| Cycle |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+|-------|-----|-----|-----|-----|-----|-----|-----|
+|   1   | eat | t&s | eat | t&s | eat | t&s | t&s |
+|   2   | t&s | eat | t&s | eat | t&s | eat | t&s |
+|   3   | t&s | t&s | eat | t&s | eat | t&s | eat |
+|   4   | eat | t&s | t&s | eat | t&s | eat | t&s |
+|   5   | t&s | eat | t&s | t&s | eat | t&s | eat |
+
+*/
 
 static int	ms_thinking_time(t_system *system, t_philo *philo)
 {

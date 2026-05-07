@@ -6,33 +6,21 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 09:53:36 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:20:53 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
-int	*validate_argument(int argc, char **argv)
+int	execute_bit_value(int philos_state)
 {
-	int	*num;
-	int	i;
-	int	tmp;
-
-	if (argc < 5 || argc > 6)
-		return (NULL);
-	num = ft_calloc(6, sizeof(int));
-	if (!num)
-		return (NULL);
-	i = 0;
-	while (i < argc - 1)
-	{
-		tmp = ft_atoi(argv[i + 1]);
-		if (tmp <= 0)
-			return (free(num), NULL);
-		num[i] = tmp;
-		i++;
-	}
-	if (argc == 5)
-		num[4] = -1;
-	return (num);
+	if ((philos_state & FATAL) == FATAL)
+		return (FATAL);
+	if ((philos_state & FAILURE) == FAILURE)
+		return (FAILURE);
+	if ((philos_state & DEATH) == DEATH)
+		return (FAILURE);
+	if ((philos_state & FULL_OF_EAT) == FULL_OF_EAT)
+		return (SUCCESS);
+	return (FAILURE);
 }

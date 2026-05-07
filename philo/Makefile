@@ -15,27 +15,28 @@ SAN_FLAGS ?=
 CFLAGS = -Wall -Wextra -Werror
 NAME = philo
 
-SRCS = srcs/app/setup.c\
-	   srcs/app/validation.c\
-	   srcs/app/main.c\
-	   srcs/app/mutex.c\
-	   srcs/app/print_base.c\
-	   srcs/domain/life.c\
+SRCS = srcs/utils/setup.c\
+	   srcs/utils/use_mutex.c\
+	   srcs/utils/create_mutex.c\
+	   srcs/utils/validation.c\
+	   srcs/utils/print_base.c\
+	   srcs/utils/pthread.c\
+	   srcs/utils/gettime.c\
+	   srcs/utils/flags.c\
+	   srcs/libft/ft_atoi.c\
+	   srcs/libft/ft_bzero.c\
+	   srcs/libft/ft_calloc.c\
+	   srcs/libft/ft_memset.c\
+	   srcs/libft/ft_putstr_fd.c\
+	   srcs/libft/ft_putnbr_fd.c\
+	   srcs/libft/ft_strlen.c\
+	   srcs/libft/ft_strncmp.c\
 	   srcs/domain/eat.c\
        srcs/domain/sleep.c\
 	   srcs/domain/think.c\
 	   srcs/domain/monitor.c\
-	   srcs/utils/pthread.c\
-	   srcs/utils/mutex.c\
-	   srcs/utils/gettime.c\
-	   srcs/utils/ft_atoi.c\
-	   srcs/utils/ft_bzero.c\
-	   srcs/utils/ft_calloc.c\
-	   srcs/utils/ft_memset.c\
-	   srcs/utils/ft_putstr_fd.c\
-	   srcs/utils/ft_putnbr_fd.c\
-	   srcs/utils/ft_strlen.c\
-	   srcs/utils/ft_strncmp.c\
+	   srcs/app/life.c\
+	   srcs/app/main.c\
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 11:19:52 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:21:02 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ int	main(int argc, char **argv)
 			philo);
 	free(philo);
 	flag |= execute_bit_value(system->philos_state);
-	flag |= free_system(system);
+	free_system(system);
 	if (flag == FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
+/* 
 void	print_system(t_system *system)
 {
 	printf("num_philos: %d\n", system->num_philos);
@@ -63,17 +64,5 @@ void	print_philo(t_philo *philo)
 	printf("right_fork: %p\n", philo->right_fork);
 	printf("state_mutex: %p\n", philo->state_mutex);
 	printf("system: %p\n", philo->system);
-}
-
-int	execute_bit_value(int philos_state)
-{
-	if ((philos_state & FATAL) == FATAL)
-		return (FATAL);
-	if ((philos_state & FAILURE) == FAILURE)
-		return (FAILURE);
-	if ((philos_state & DEATH) == DEATH)
-		return (FAILURE);
-	if ((philos_state & FULL_OF_EAT) == FULL_OF_EAT)
-		return (SUCCESS);
-	return (FAILURE);
-}
+} 
+*/

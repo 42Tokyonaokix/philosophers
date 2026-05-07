@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 11:26:19 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:09:44 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	create_threads(int n, void *life_func(void *), void *monitor_func(void *),
 
 	thread = ft_calloc(n + 1, sizeof(pthread_t));
 	if (!thread)
-		return (FAILURE);
+		return (fatal_error("malloc"), FAILURE);
 	if (pthread_create(&thread[0], NULL, monitor_func, philo) != SUCCESS)
-		return (free(thread), FAILURE);
+		return (fatal_error("pthread_create"), free(thread), FAILURE);
 	flag = SUCCESS;
 	i = 0;
 	while (i < n)
@@ -34,6 +34,7 @@ int	create_threads(int n, void *life_func(void *), void *monitor_func(void *),
 				&philo[i]) != SUCCESS)
 		{
 			flag = FAILURE;
+			fatal_error("pthread_create");
 			break ;
 		}
 		i++;
@@ -53,7 +54,10 @@ static int	free_threads(pthread_t *thread, int i)
 	while (j < i && thread[j])
 	{
 		if (pthread_join(thread[j], NULL) != SUCCESS)
+		{
 			flag = FAILURE;
+			fatal_error("pthread_join");
+		}
 		j++;
 	}
 	free(thread);

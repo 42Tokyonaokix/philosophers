@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 11:25:48 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:03:26 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,9 @@ void				*philo_monitor(void *arg);
 /* app.main */
 void				print_system(t_system *system);
 void				print_philo(t_philo *philo);
+
+/* utils.vaidation */
+void				invalid_input_error(char *arg);
+void				fatal_error(char *arg);
 
 #endif

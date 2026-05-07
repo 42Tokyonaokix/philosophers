@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 11:18:47 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:07:01 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_system	*setup_t_system(int *num)
 
 	system = ft_calloc(1, sizeof(t_system));
 	if (!system)
-		return (NULL);
+		return (fatal_error("malloc"), NULL);
 	system->num_philos = num[0];
 	system->time_to_die = num[1];
 	system->time_to_eat = num[2];
@@ -30,7 +30,7 @@ t_system	*setup_t_system(int *num)
 	system->ms_zero = get_ms();
 	system->philos_state = SUCCESS;
 	if (setup_system_mutex(system) == FAILURE)
-		return (free(system), NULL);
+		return (fatal_error("create_mutex"), free(system), NULL);
 	return (system);
 }
 
@@ -41,7 +41,7 @@ t_philo	*setup_t_philo(t_system *system)
 
 	philo = ft_calloc(system->num_philos + 1, sizeof(t_philo));
 	if (!philo)
-		return (NULL);
+		return (fatal_error("malloc"), NULL);
 	i = 0;
 	while (i < system->num_philos)
 	{
