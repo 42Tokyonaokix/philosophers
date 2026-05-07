@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 10:26:16 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 09:53:36 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	*validate_argument(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (NULL);
-	num = ft_calloc(sizeof(int), 6);
+	num = ft_calloc(6, sizeof(int));
 	if (!num)
 		return (NULL);
 	i = 0;

@@ -14,11 +14,14 @@
 
 static int	philo_eating(t_philo *philo);
 static int	philo_state_change(t_philo *philo, void *arg);
+static int	philo_alone(t_philo *philo, void *arg);
 
 int	philo_eat(t_system *system, t_philo *philo)
 {
 	if (system->must_eat_count == 0)
 		return (FULL_OF_EAT);
+	if (system->num_philos == 1)
+		return (philo_mutex_do(philo, philo->right_fork, philo_alone, system));
 	if (philo->id % 2 == 0)
 		return (philo_forks_do(philo, philo->left_fork, philo->right_fork,
 			philo_eating));
@@ -55,3 +58,17 @@ static int	philo_state_change(t_philo *philo, void *arg)
 	philo->meals_eaten++;
 	return (SUCCESS);
 }
+
+static int	philo_alone(t_philo *philo, void *arg)
+{
+	t_system	*system;
+	int			flag;
+
+	system = (t_system *)arg;
+	flag = SUCCESS;
+	flag |=	print_str(philo, (void *)"has taken a fork");
+	while (flag == SUCCESS)
+		flag |= philo_mutex_do(philo, system->dead_mutex,
+			are_philos_living, (void *)system);
+	return (flag);
+} 

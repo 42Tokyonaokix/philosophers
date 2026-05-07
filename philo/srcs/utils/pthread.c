@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 21:57:34 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 09:56:12 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	create_threads(int n, void *life_func(void *), void *monitor_func(void *), v
 	if (!thread)
 		return (FAILURE);
 	if (pthread_create(&thread[0], NULL, monitor_func, strct) != SUCCESS)
-		return (FAILURE);
+		return (free(thread), FAILURE);
 	flag = SUCCESS;
 	i = 0;
 	philo = (t_philo *)strct;

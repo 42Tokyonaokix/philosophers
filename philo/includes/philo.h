@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/04 06:21:05 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 10:25:04 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@
 # define FAILURE 1
 # define FATAL 2
 # define DEATH 4
-# define CONTINUE 8
-# define FULL_OF_EAT 16
+# define FULL_OF_EAT 8
 
 
 typedef struct s_system {
@@ -66,10 +65,10 @@ void			ft_bzero(void *s, size_t n);
 void			ft_putnbr_fd(int n, int fd);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 /* utils.gettime */
-int				get_ms(void);
-int				get_time(int ms_zero);
-int				wait_time(int ms_time, int us_wait);
-int				wait_until_time(int ms_zero, int ms_finish, int us_wait);
+long long		get_ms(void);
+long long		get_time(long long ms_zero);
+int				wait_time(long long ms_time, int us_wait);
+int				wait_until_time(long long ms_zero, long long ms_finish, int us_wait);
 
 /* utils.mutex */
 int				free_mutex(pthread_mutex_t *mutex, int i);
@@ -85,15 +84,17 @@ int				*validate_argument(int argc, char **argv);
 t_system		*setup_t_system(int *num);
 t_philo			*setup_t_philo(t_system *system);
 int				free_system(t_system *system);
+int				execute_bit_value(int philos_state);
 
 /* app.mutex */
-int	philo_mutex_do(t_philo *philo, pthread_mutex_t *mutex,
-		int function(t_philo *, void *), void *arg);
-int	philo_forks_do(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *next,
-		int function(t_philo *));
+int				philo_mutex_do(t_philo *philo, pthread_mutex_t *mutex,
+					int function(t_philo *, void *), void *arg);
+int				philo_forks_do(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *next,
+					int function(t_philo *));
 
 /* print_base */
 int				print_str(t_philo *philo, void *str);
+int				are_philos_living(t_philo *philo, void *arg);
 
 /* print_life */
 int				print_fork(t_philo *philo);
@@ -107,7 +108,7 @@ int				philo_think(t_system *system, t_philo *philo);
 void			*philo_monitor(void *arg);
 
 /* app.main */
-void	print_system(t_system *system);
-void	print_philo(t_philo *philo);
+void			print_system(t_system *system);
+void			print_philo(t_philo *philo);
 
 #endif

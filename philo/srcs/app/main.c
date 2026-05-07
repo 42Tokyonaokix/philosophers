@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/04 06:05:35 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 10:40:00 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	main(int argc, char **argv)
 		return (free_system(system), EXIT_FAILURE);	
 	flag = SUCCESS;
 	flag |= create_threads(system->num_philos, philo_life_manage, philo_monitor, philo);
-	flag |= free_system(system);
 	free(philo);
+	flag |= execute_bit_value(system->philos_state);
+	flag |= free_system(system);
 	if (flag == FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);	

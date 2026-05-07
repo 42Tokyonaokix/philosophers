@@ -27,8 +27,13 @@ void *philo_monitor(void *arg)
 	while (true)
 	{
 		flag = monitoring_philos(philo, system);
-		if (flag != CONTINUE)
+		if (flag != SUCCESS)
+		{
+			flag = philo_mutex_do(philo, system->dead_mutex,
+				philo_state_change, &flag);
 			return (NULL);
+		}
+		
 	}
 }
 
@@ -37,19 +42,22 @@ static int	monitoring_philos(t_philo *philo, t_system *system)
 	int	num_philos;
 	int	i;
 	int	flag;
+	int	foe_flag;
 
 	num_philos = system->num_philos;
 	flag = SUCCESS;
+	foe_flag = FULL_OF_EAT;
 	i = 0;
 	while (i < num_philos)
 	{
-		flag |= philo_mutex_do(&philo[i], philo[i].state_mutex,
+		flag = philo_mutex_do(&philo[i], philo[i].state_mutex,
 		is_philo_living, (void *)system);
-		if (flag != SUCCESS && flag != CONTINUE)
+		if (flag != SUCCESS && flag != FULL_OF_EAT)
 			return (flag);
+		foe_flag &= flag;
 		i++;
 	}
-	return (flag);
+	return (foe_flag);
 }
 
 int	is_philo_living(t_philo *philo, void *arg)
@@ -71,13 +79,8 @@ int	is_philo_living(t_philo *philo, void *arg)
 	}
 	if (philo->meals_eaten >= system->must_eat_count
 		&& system->must_eat_count >= 0)
-	{
-		flag = SUCCESS;
-		philo_mutex_do(philo, system->dead_mutex,
-			philo_state_change, &flag);
-		return (SUCCESS);
-	}
-	return (CONTINUE);
+		return (FULL_OF_EAT);
+	return (SUCCESS);
 }
 
 int	philo_state_change(t_philo *philo, void *arg)

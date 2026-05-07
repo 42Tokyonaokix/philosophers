@@ -6,13 +6,11 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/04 06:45:28 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/07 10:24:35 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
-
-static int	is_philo_living(t_philo *philo, void *arg);
 
 int	print_str(t_philo *philo, void *ptr)
 {
@@ -24,8 +22,8 @@ int	print_str(t_philo *philo, void *ptr)
 	str = (char *)ptr;
 	system = philo->system;
 	flag = philo_mutex_do(philo, system->dead_mutex,
-		is_philo_living, system);
-	if (ft_strncmp(str, "died", 5) != 0 && flag != CONTINUE)
+		are_philos_living, system);
+	if (ft_strncmp(str, "died", 5) != 0 && flag != SUCCESS)
 		return (flag);
 	ms_now = get_time(system->ms_zero);
 	ft_putnbr_fd(ms_now, 1);
@@ -37,7 +35,7 @@ int	print_str(t_philo *philo, void *ptr)
 	return (SUCCESS);
 }
 
-static int	is_philo_living(t_philo *philo, void *arg)
+int	are_philos_living(t_philo *philo, void *arg)
 {
 	t_system	*system;
 
