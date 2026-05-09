@@ -25,8 +25,8 @@ int	philo_think(t_system *system, t_philo *philo)
 	ms_start = get_time(system->ms_zero);
 	flag |= philo_mutex_do(philo, system->print_mutex, print_str,
 			(void *)"is thinking");
-	if (flag == FATAL)
-		return (FATAL);
+	if (flag != SUCCESS)
+		return (SUCCESS);
 	ms_think = ms_thinking_time(system, philo);
 	if (ms_think < 0)
 		return (FAILURE);
@@ -67,12 +67,11 @@ static int	ms_thinking_time(t_system *system, t_philo *philo)
 	int	meals_eaten;
 	int	think_time;
 
-	
 	num_groups = (system->num_philos + 1) / 2;
 	group_id = ((philo->id - 1) / 2 + 1) % num_groups;
 	if (philo_mutex_do(philo, philo->state_mutex,
-		get_meals_eaten, &meals_eaten) != SUCCESS)
-			return (ERROR);
+			get_meals_eaten, &meals_eaten) != SUCCESS)
+		return (ERROR);
 	if (meals_eaten == 0 && philo->id % 2 == 1)
 		think_time = 0;
 	else if (system->num_philos % 2 == 0)

@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/09 12:30:21 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/09 18:44:56 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	*validate_argument(int argc, char **argv)
 	while (i < argc - 1)
 	{
 		num[i] = ft_atoi(argv[i + 1]);
-		if ((i == NUM_PHILOS && num[i] <= 0 ) || num[i] < 0)
+		if ((i == NUM_PHILOS && num[i] <= 0) || num[i] < 0)
 			return (invalid_input_error(argv[i + 1]),
 				free(num), NULL);
 		i++;

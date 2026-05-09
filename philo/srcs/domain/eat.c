@@ -40,9 +40,9 @@ static int	philo_eating(t_philo *philo)
 	flag = SUCCESS;
 	flag |= philo_mutex_do(philo, system->print_mutex, print_str,
 			(void *)"is eating");
-	if (flag == FATAL)
-		return (FATAL);
 	ms_start = get_time(system->ms_zero);
+	if (flag != SUCCESS)
+		return (flag);
 	flag |= philo_mutex_do(philo, philo->state_mutex, philo_state_change,
 			(void *)(&ms_start));
 	wait_until_time(system->ms_zero, ms_start + system->time_to_eat, USLEEP);

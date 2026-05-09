@@ -21,8 +21,8 @@ int	philo_sleep(t_system *system, t_philo *philo)
 	ms_start = get_time(system->ms_zero);
 	flag |= philo_mutex_do(philo, system->print_mutex, print_str,
 			(void *)"is sleeping");
-	if (flag == FATAL)
-		return (FATAL);
+	if (flag != SUCCESS)
+		return (SUCCESS);
 	wait_until_time(system->ms_zero, ms_start + system->time_to_sleep, USLEEP);
 	return (flag);
 }

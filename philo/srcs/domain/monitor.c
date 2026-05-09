@@ -29,8 +29,8 @@ void	*philo_monitor(void *arg)
 		flag = monitoring_philos(philo, system);
 		if (flag != SUCCESS)
 		{
-			flag = philo_mutex_do(philo, system->dead_mutex, philos_state_change,
-					&flag);
+			flag = philo_mutex_do(philo, system->dead_mutex,
+					philos_state_change, &flag);
 			return (NULL);
 		}
 	}
