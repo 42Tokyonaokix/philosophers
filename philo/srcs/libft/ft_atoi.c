@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/03 10:35:52 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/09 10:47:04 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	ft_atoi(const char *nptr)
 	{
 		number = number * 10 + (nptr[count] - '0');
 		if (number > INT_MAX)
-			return (-1);
+			return (ERROR);
 		count++;
 	}
 	if (nptr[count])
-		return (-1);
+		return (ERROR);
 	return ((int)number);
 }

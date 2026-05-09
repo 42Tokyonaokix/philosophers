@@ -13,6 +13,7 @@
 #include "../../includes/philo.h"
 
 static int	ms_thinking_time(t_system *system, t_philo *philo);
+static int	get_meals_eaten(t_philo *philo, void *meals_eaten);
 
 int	philo_think(t_system *system, t_philo *philo)
 {
@@ -27,6 +28,8 @@ int	philo_think(t_system *system, t_philo *philo)
 	if (flag == FATAL)
 		return (FATAL);
 	ms_think = ms_thinking_time(system, philo);
+	if (ms_think < 0)
+		return (FAILURE);
 	wait_until_time(system->ms_zero, ms_start + ms_think, USLEEP);
 	return (flag);
 }
@@ -61,23 +64,30 @@ static int	ms_thinking_time(t_system *system, t_philo *philo)
 {
 	int	num_groups;
 	int	group_id;
-	int	eat_time;
-	int	slp_time;
+	int	meals_eaten;
 	int	think_time;
 
-	eat_time = system->time_to_eat;
-	slp_time = system->time_to_sleep;
+	
 	num_groups = (system->num_philos + 1) / 2;
 	group_id = ((philo->id - 1) / 2 + 1) % num_groups;
-	if (philo->meals_eaten == 0 && philo->id % 2 == 1)
+	if (philo_mutex_do(philo, philo->state_mutex,
+		get_meals_eaten, &meals_eaten) != SUCCESS)
+			return (ERROR);
+	if (meals_eaten == 0 && philo->id % 2 == 1)
 		think_time = 0;
 	else if (system->num_philos % 2 == 0)
-		think_time = eat_time - slp_time;
-	else if (group_id == eat_time % num_groups)
-		think_time = eat_time * 2 - slp_time;
+		think_time = system->time_to_eat - system->time_to_sleep;
+	else if (group_id == system->time_to_eat % num_groups)
+		think_time = system->time_to_eat * 2 - system->time_to_sleep;
 	else
-		think_time = eat_time - slp_time;
+		think_time = system->time_to_eat - system->time_to_sleep;
 	if (think_time < 0)
 		think_time = 0;
 	return (think_time);
+}
+
+static int	get_meals_eaten(t_philo *philo, void *meals_eaten)
+{
+	*(int *)meals_eaten = philo->meals_eaten;
+	return (SUCCESS);
 }

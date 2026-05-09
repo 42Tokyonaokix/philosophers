@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 09:44:45 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 17:03:26 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/09 10:45:15 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,19 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+/* uitls */
 # define USLEEP 50
+# define ERROR -1
 # define SUCCESS 0
 # define FAILURE 1
 # define FATAL 2
 # define DEATH 4
 # define FULL_OF_EAT 8
+
+/* domain */
+# define NUM_PHILOS 0
+# define MUST_EAT 4
+# define UNDEF -1
 
 typedef struct s_system
 {
@@ -117,5 +124,6 @@ void				print_philo(t_philo *philo);
 /* utils.vaidation */
 void				invalid_input_error(char *arg);
 void				fatal_error(char *arg);
+void				invalid_arg_error(void);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "../../includes/philo.h"
 
-int			philo_state_change(t_philo *philo, void *arg);
+int			philos_state_change(t_philo *philo, void *arg);
 static int	monitoring_philos(t_philo *philo, t_system *system);
 int			change_philo_status(t_philo *philo, void *arg);
 
@@ -29,7 +29,7 @@ void	*philo_monitor(void *arg)
 		flag = monitoring_philos(philo, system);
 		if (flag != SUCCESS)
 		{
-			flag = philo_mutex_do(philo, system->dead_mutex, philo_state_change,
+			flag = philo_mutex_do(philo, system->dead_mutex, philos_state_change,
 					&flag);
 			return (NULL);
 		}
@@ -70,7 +70,7 @@ int	change_philo_status(t_philo *philo, void *arg)
 	if (ms_now > philo->last_meal_time + system->time_to_die)
 	{
 		flag = DEATH;
-		philo_mutex_do(philo, system->dead_mutex, philo_state_change, &flag);
+		philo_mutex_do(philo, system->dead_mutex, philos_state_change, &flag);
 		philo_mutex_do(philo, system->print_mutex, print_str, (void *)"died");
 		return (DEATH);
 	}
@@ -80,7 +80,7 @@ int	change_philo_status(t_philo *philo, void *arg)
 	return (SUCCESS);
 }
 
-int	philo_state_change(t_philo *philo, void *arg)
+int	philos_state_change(t_philo *philo, void *arg)
 {
 	int	flag;
 

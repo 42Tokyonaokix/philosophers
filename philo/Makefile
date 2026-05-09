@@ -11,7 +11,6 @@
 # **************************************************************************** #
 
 CC = cc
-SAN_FLAGS ?=
 CFLAGS = -Wall -Wextra -Werror
 NAME = philo
 
@@ -51,7 +50,7 @@ $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(CLIANT_OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
