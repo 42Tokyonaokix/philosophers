@@ -160,8 +160,42 @@ After the compilation is complete, the generated philo\_simulation file will be 
     
 *   time_to_die (milliseconds): The lifespan. If a philosopher does not start the next meal after the specified time has elapsed since the last meal start time or the start of the simulation, that philosopher will die of starvation.
     
-*    time_to_eat (milliseconds): the time it takes to eat. During this time, the philosopher keeps holding two forks.
+*    time_to_eat (millisecon
+ds): the time it takes to eat. During this time, the philosopher keeps holding two forks.
     
 *   time_to_sleep (milliseconds): the time it takes to sleep.
     
 *   [number_of_times_each_philosopher_must_eat] (optional): the simulation ends if all philosophers have finished eating at least this many times. if not specified, the simulation continues until someone dies.
+
+# 4.Resources
+
+## 4.1 References
+
+### Threads & Synchronization
+
+- POSIX Threads man pages — `man 3 pthread_create`, `pthread_mutex_init`, `pthread_mutex_lock`, `pthread_mutex_unlock`, `pthread_mutex_destroy`, `pthread_join`, `pthread_detach`
+- POSIX `gettimeofday` / `usleep` man pages
+- The Open Group Base Specifications (POSIX): https://pubs.opengroup.org/onlinepubs/9699919799/
+
+### Dining Philosophers Problem
+
+- Wikipedia — Dining philosophers problem: https://en.wikipedia.org/wiki/Dining_philosophers_problem
+- Tutorial articles (title / URL) — *<TBD>*
+
+### 42 Peer Implementations & Articles
+
+- Senior peers' philo implementations / blog posts (title / URL) — *<TBD>*
+
+### Domain-Driven Design
+
+- DDD references curated in my NotebookLM — *<NotebookLM source names / URLs — TBD>*
+
+## 4.2 AI Usage
+
+This project was completed with AI assistance, used in three phases under the
+"Learner rules" of the subject's *AI Instructions*: I always reviewed and took
+responsibility for any code or text I adopted.
+
+- **Learning** — Discussed Dining Philosophers algorithms (deadlock avoidance, parity-based ordering) and used AI as a study partner for Domain-Driven Design and design pattern application.
+- **Review** — Asked AI to inspect my code for data races and deadlock paths, get a second opinion on design decisions, and suggest refactors for naming and readability.
+- **Writing** — Brainstormed README structure / section breakdown, and refined wording, English translation, and tone of the final text.
