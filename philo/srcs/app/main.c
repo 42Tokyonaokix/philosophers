@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 16:21:02 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/17 11:36:42 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main(int argc, char **argv)
 	free(philo);
 	flag |= execute_bit_value(system->philos_state);
 	free_system(system);
-	if (flag == FAILURE)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	if (flag == SUCCESS)
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 /* 
