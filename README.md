@@ -8,7 +8,7 @@ This project is a simulation program that solves the classical "dining philosoph
 
 ## 2.1 Data Structure Design
 
-### 2.1.1 t\_system
+### 2.1.1 t_system
 
 To maintain read-only rules shared across the entire simulation and global resources shared between threads.
 
