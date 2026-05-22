@@ -14,6 +14,8 @@
 
 static int	ms_thinking_time(t_system *system, t_philo *philo);
 static int	get_meals_eaten(t_philo *philo, void *meals_eaten);
+static int	first_think(t_system system, t_philo philo);
+static int	think_after_second(t_system system, t_philo philo, int meals_eaten);
 
 int	philo_think(t_system *system, t_philo *philo)
 {
@@ -62,24 +64,46 @@ its the time schedule example when ./philo 7 300 90 90
 
 static int	ms_thinking_time(t_system *system, t_philo *philo)
 {
-	int	num_groups;
-	int	group_id;
 	int	meals_eaten;
-	int	think_time;
 
-	num_groups = (system->num_philos + 1) / 2;
-	group_id = ((philo->id - 1) / 2 + 1) % num_groups;
 	if (philo_mutex_do(philo, philo->state_mutex,
 			get_meals_eaten, &meals_eaten) != SUCCESS)
 		return (ERROR);
-	if (meals_eaten == 0 && philo->id % 2 == 1)
-		think_time = 0;
-	else if (system->num_philos % 2 == 0)
-		think_time = system->time_to_eat - system->time_to_sleep;
-	else if (group_id == system->time_to_eat % num_groups)
-		think_time = system->time_to_eat * 2 - system->time_to_sleep;
+	if (meals_eaten == 0)
+		return (first_think(*system, *philo));
 	else
-		think_time = system->time_to_eat - system->time_to_sleep;
+		return (think_after_second(*system, *philo, meals_eaten));
+}
+
+static int	first_think(t_system system, t_philo philo)
+{
+	int	think_time; 
+
+	if (philo.id == system.num_philos)
+		think_time = system.time_to_eat * 2;
+	else if (philo.id % 2 == 1)
+		think_time = 0;
+	else
+		think_time = system.time_to_eat;
+	return (think_time);
+}
+
+static int	think_after_second(t_system system, t_philo philo, int meals_eaten)
+{
+	int	think_time;
+	int	num_groups;
+	int	group_id;
+
+	num_groups = system.num_philos / 2;
+	group_id = (philo.id + 1) / 2;
+	if (philo.id == system.num_philos)
+		group_id--;
+	if (system.num_philos % 2 == 0)
+		think_time = system.time_to_eat - system.time_to_sleep;
+	else if (group_id % num_groups == meals_eaten % num_groups)
+		think_time = system.time_to_eat * 2 - system.time_to_sleep;
+	else
+		think_time = system.time_to_eat - system.time_to_sleep;
 	if (think_time < 0)
 		think_time = 0;
 	return (think_time);
