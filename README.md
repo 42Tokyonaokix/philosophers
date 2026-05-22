@@ -1,22 +1,8 @@
-*This project has been created as part of the 42 curriculum by .*
-
-# 1.Description
-
-This project is a simulation program that solves the classical "dining philosophers" problem using multi-threaded programming. Each philosopher is represented as a thread, and they repeatedly cycle through "eating," "sleeping," and "thinking" while competing for the shared resource, the fork (mutex).
-
-# 2.Technical Chices
-
-## 2.1 Data Structure Design
-
-### 2.1.1 t_system
-
-To maintain read-only rules shared across the entire simulation and global resources shared between threads.
-
-```c
-# include <pthread.h>
-This project implements a multithreaded simulation of the classical "dining philosophers" problem as part of the 42 curriculum.
+*This project has been created as part of the 42 curriculum by natakaha.*
 
 # Description
+
+This project implements a multithreaded simulation of the classical "dining philosophers" problem as part of the 42 curriculum.
 
 Each philosopher is represented by a thread that cycles through eating, sleeping, and thinking while competing for forks (mutexes).
 
@@ -62,10 +48,9 @@ Arguments:
 - `time_to_sleep_ms`: duration of the sleeping action.
 - `number_of_times_each_philosopher_must_eat` (optional): if provided, the simulation ends when every philosopher has eaten at least this many times; otherwise it runs until a philosopher dies.
 
-# Notes and known issues
+# Notes
 
 - This README is a companion summary; the authoritative behavior and types are defined in `philo/includes/philo.h` and implemented under `philo/srcs/`.
-- If you want a checklist to compare against the subject PDF (required behavior, output format, edge cases), please upload `philosophers.pdf` and I will perform a line-by-line compliance review.
 
 # References
 
@@ -76,4 +61,3 @@ Arguments:
 # AI usage
 
 This project used AI as an assistant under the author's review: learning, code review, and writing assistance phases were involved. The author verified and accepted all changes made with AI help.
- pthread_mutex_t *right_fork;

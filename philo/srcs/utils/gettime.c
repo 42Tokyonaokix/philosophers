@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 08:36:33 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/07 10:03:21 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/22 23:01:18 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,6 @@ long long	get_time(long long ms_zero)
 
 	ms_time = get_ms();
 	return (ms_time - ms_zero);
-}
-
-int	wait_time(long long ms_time, int us_wait)
-{
-	long long	ms_start;
-	long long	ms_now;
-	long long	ms_finish;
-
-	ms_now = get_ms();
-	ms_start = ms_now;
-	ms_finish = ms_start + ms_time;
-	while (ms_finish > ms_now)
-		usleep(us_wait);
-	return (SUCCESS);
 }
 
 int	wait_until_time(long long ms_zero, long long ms_finish, int us_wait)

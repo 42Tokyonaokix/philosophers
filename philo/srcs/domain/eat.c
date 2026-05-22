@@ -65,8 +65,7 @@ static int	philo_alone(t_philo *philo, void *arg)
 	int			flag;
 
 	system = (t_system *)arg;
-	flag = SUCCESS;
-	flag |= print_str(philo, (void *)"has taken a fork");
+	flag = philo_mutex_do(philo, philo->system->print_mutex , print_str, "has taken a fork");
 	wait_until_time(system->ms_zero, system->time_to_die, 1000);
 	while (flag == SUCCESS)
 		flag |= philo_mutex_do(philo, system->dead_mutex, are_philos_living,
