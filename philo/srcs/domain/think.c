@@ -79,7 +79,7 @@ static int	first_think(t_system system, t_philo philo)
 {
 	int	think_time; 
 
-	if (philo.id == system.num_philos)
+	if (philo.id == system.num_philos && system.num_philos % 2)
 		think_time = system.time_to_eat * 2;
 	else if (philo.id % 2 == 1)
 		think_time = 0;
