@@ -14,188 +14,66 @@ To maintain read-only rules shared across the entire simulation and global resou
 
 ```c
 # include <pthread.h>
+This project implements a multithreaded simulation of the classical "dining philosophers" problem as part of the 42 curriculum.
 
-typedef struct s_system {
- int num_philos;
- long time_to_die;
- long time_to_eat;
- long time_to_sleep;
- int must_eat_count;
- pthread_mutex_t *forks;
- pthread_mutex_t *print_mutex;
- pthread_mutex_t *dead_mutex;
- int philos_state;
-}	t_system;
+# Description
 
-```
+Each philosopher is represented by a thread that cycles through eating, sleeping, and thinking while competing for forks (mutexes).
 
-### 2.1.2 t\_philo
+# Technical Choices
 
-To maintain the unique data of each philosopher and references to the resources they use.
+## Data structures
 
-```c
+Brief summaries of the two primary structs used by the program (see `philo/includes/philo.h` for the definitive definitions):
 
-typedef struct s_philo {
- int id;
- long last_meal_time;
- int meals_eaten;
- pthread_mutex_t *left_fork;
- pthread_mutex_t *right_fork;
- pthread_mutex_t state_mutex;
- t_system *system;
-} t_philo;
+- `t_system`: global simulation parameters and shared resources (fork mutex array, print mutex, death/state mutexes, timestamps, etc.).
+- `t_philo`: per-philosopher state (id, last meal time, meals eaten, left/right fork pointers, per-philosopher mutex, back-reference to `t_system`).
 
-```
+## Synchronization and deadlock avoidance
 
-### 2.1.2 t\_philo
+- Per-philosopher mutexes protect `last_meal_time` and related state from concurrent monitor and philosopher threads.
+- A global print mutex serializes console output.
+- Deadlock avoidance is achieved by ordering fork acquisition or slightly staggering philosopher start times (even/odd parity), depending on runtime conditions.
 
-To maintain the unique data of each philosopher and references to the resources they use.
+## Timing
 
-```c
+- Uses `gettimeofday` to implement millisecond-precision time tracking and a short-loop `usleep` based wait to implement accurate sleeps.
+- A monitor thread periodically checks `current_time - last_meal_time >= time_to_die` to detect deaths and stop the simulation.
 
-typedef struct s_philo {
- int id;
- long last_meal_time;
- int meals_eaten;
- pthread_mutex_t *left_fork;
- pthread_mutex_t *right_fork;
- pthread_mutex_t state_mutex;
- t_system *system;
-} t_philo;
+# Compilation and usage
 
-```
-
-### 2.1.2 t\_philo
-
-To maintain the unique data of each philosopher and references to the resources they use.
-
-```c
-
-typedef struct s_philo {
- int id;
- long last_meal_time;
- int meals_eaten;
- pthread_mutex_t *left_fork;
- pthread_mutex_t *right_fork;
- pthread_mutex_t state_mutex;
- t_system *system;
-} t_philo;
-
-```
-
-## 2.2 Strategies for Synchronization and Parallel Processing
-
-### 2.2.1 Data Race Prevention (Data Race Prevention)
-
-To prevent the "monitor thread (reading)" and "dining thread (writing)" from accessing last\_meal\_time simultaneously, the state\_mutex held by each philosopher is used. Additionally, dead\_mutex is used for updating and checking the death flag, and print\_mutex is used to prevent confusion in log output.
-
-### 2.2.2 Deadlock Avoidance
-
-To prevent everyone from freezing at the same time with one fork, either slightly delay the start time of philosophers with even numbers using usleep, or reverse the order of taking the left and right forks in an even-odd manner.
-
-## 2.3 Time Management and Monitoring
-
-### 2.3.1 accurate waiting
-
-To minimize delays due to OS scheduling, create a high-precision sleep function using gettimeofday. Continuously check the current time while repeatedly using short usleep until the target time is reached.
-
-#### 2.3.2 Monitoring Logic
-
-Main thread iterates through all philosophers and checks the following conditions: Evaluation criteria: (current time - last\_meal\_time) >= time\_to\_die If the condition is true, it sets the death flag and notifies all threads to stop.
-
-```c
-
-typedef struct s_philo {
- int id;
- long last_meal_time;
- int meals_eaten;
- pthread_mutex_t *left_fork;
- pthread_mutex_t *right_fork;
- pthread_mutex_t state_mutex;
- t_system *system;
-} t_philo;
-
-```
-
-#### 2.3 2.3.3 Optimal Waiting Time (thinking.c)
-
-This algo defines the two different sleep time.
-
-The one is "eat_time - sleep_time". It is the basic think_time which can make eat_time = sleep_time + think_time. So it enables philos to gain eat-and-rest cycles. this cycles sync odds and evens because of the sharing forks with next ones.
-
-The other is "eat_time * 2 - sleep_time". When number of philos are odd, the first way has a problem. The last philo cant have a fork because the next one is also has odd id. this irregular think_time happens number-of-philos a time. its because every time needs one rest person.
-
-its the time schedule example when ./philo 7 300 90 90
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-| --- | --- | --- | --- | --- | --- | --- |
-| eat | t&s | eat | t&s | eat | t&s | t&s |
-| t&s | eat | t&s | eat | t&s | eat | t&s |
-| t&s | t&s | eat | t&s | eat | t&s | eat |
-| eat | t&s | t&s | eat | t&s | eat | t&s |
-| t&s | eat | t&s | t&s | eat | t&s | eat |
-
-# 3.Instructions
-
-### Compilation
-
-This project includes `Makefile` . To compile the source code, run the following command in the root directory of the repository:
+To build the program, run in the project root:
 
 ```bash
-
 make
-
 ```
 
-After the compilation is complete, the generated philo\_simulation file will be executed with the following arguments.
+This produces the binary named `philo` (see `philo/Makefile`). Run it as:
 
 ```bash
-
-./philo <number_of_philoophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philoopher_must_eat]
-
+./philo <number_of_philosophers> <time_to_die_ms> <time_to_eat_ms> <time_to_sleep_ms> [number_of_times_each_philosopher_must_eat]
 ```
 
+Arguments:
 
-    number\_of\_philosophers: The number of philosophers (= the number of forks on the table).
-    
-*   time_to_die (milliseconds): The lifespan. If a philosopher does not start the next meal after the specified time has elapsed since the last meal start time or the start of the simulation, that philosopher will die of starvation.
-    
-*    time_to_eat (millisecon
-ds): the time it takes to eat. During this time, the philosopher keeps holding two forks.
-    
-*   time_to_sleep (milliseconds): the time it takes to sleep.
-    
-*   [number_of_times_each_philosopher_must_eat] (optional): the simulation ends if all philosophers have finished eating at least this many times. if not specified, the simulation continues until someone dies.
+- `number_of_philosophers`: number of philosophers (and forks).
+- `time_to_die_ms`: milliseconds a philosopher may go without starting to eat before dying.
+- `time_to_eat_ms`: duration of the eating action (forks held during this time).
+- `time_to_sleep_ms`: duration of the sleeping action.
+- `number_of_times_each_philosopher_must_eat` (optional): if provided, the simulation ends when every philosopher has eaten at least this many times; otherwise it runs until a philosopher dies.
 
-# 4.Resources
+# Notes and known issues
 
-## 4.1 References
+- This README is a companion summary; the authoritative behavior and types are defined in `philo/includes/philo.h` and implemented under `philo/srcs/`.
+- If you want a checklist to compare against the subject PDF (required behavior, output format, edge cases), please upload `philosophers.pdf` and I will perform a line-by-line compliance review.
 
-### Threads & Synchronization
+# References
 
-- POSIX Threads man pages — `man 3 pthread_create`, `pthread_mutex_init`, `pthread_mutex_lock`, `pthread_mutex_unlock`, `pthread_mutex_destroy`, `pthread_join`, `pthread_detach`
-- POSIX `gettimeofday` / `usleep` man pages
-- The Open Group Base Specifications (POSIX): https://pubs.opengroup.org/onlinepubs/9699919799/
+- POSIX threads man pages (`pthread_create`, `pthread_mutex_lock`, etc.)
+- `gettimeofday` / `usleep`
+- Dining Philosophers — https://en.wikipedia.org/wiki/Dining_philosophers_problem
 
-### Dining Philosophers Problem
+# AI usage
 
-- Wikipedia — Dining philosophers problem: https://en.wikipedia.org/wiki/Dining_philosophers_problem
-- Tutorial articles (title / URL) — *<TBD>*
-
-### 42 Peer Implementations & Articles
-
-- Senior peers' philo implementations / blog posts (title / URL) — *<TBD>*
-
-### Domain-Driven Design
-
-- DDD references curated in my NotebookLM — *<NotebookLM source names / URLs — TBD>*
-
-## 4.2 AI Usage
-
-This project was completed with AI assistance, used in three phases under the
-"Learner rules" of the subject's *AI Instructions*: I always reviewed and took
-responsibility for any code or text I adopted.
-
-- **Learning** — Discussed Dining Philosophers algorithms (deadlock avoidance, parity-based ordering) and used AI as a study partner for Domain-Driven Design and design pattern application.
-- **Review** — Asked AI to inspect my code for data races and deadlock paths, get a second opinion on design decisions, and suggest refactors for naming and readability.
-- **Writing** — Brainstormed README structure / section breakdown, and refined wording, English translation, and tone of the final text.
+This project used AI as an assistant under the author's review: learning, code review, and writing assistance phases were involved. The author verified and accepted all changes made with AI help.
+ pthread_mutex_t *right_fork;
