@@ -77,7 +77,7 @@ static int	ms_thinking_time(t_system *system, t_philo *philo)
 
 static int	first_think(t_system system, t_philo philo)
 {
-	int	think_time; 
+	int	think_time;
 
 	if (philo.id == system.num_philos && system.num_philos % 2)
 		think_time = system.time_to_eat * 2;

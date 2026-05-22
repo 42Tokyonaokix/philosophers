@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/22 20:03:03 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/22 23:16:42 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	create_threads(int n, void *life_func(void *), void *monitor_func(void *),
 
 	thread = ft_calloc(n + 1, sizeof(pthread_t));
 	if (!thread)
-		return (fatal_error("malloc"), FAILURE);	
+		return (fatal_error("malloc"), FAILURE);
 	flag = SUCCESS;
 	i = 0;
 	while (i < n)
