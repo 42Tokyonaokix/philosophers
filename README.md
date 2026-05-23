@@ -26,6 +26,8 @@ Brief summaries of the two primary structs used by the program (see `philo/inclu
 - Uses `gettimeofday` to implement millisecond-precision time tracking and a short-loop `usleep` based wait to implement accurate sleeps.
 - A monitor thread periodically checks `current_time - last_meal_time >= time_to_die` to detect deaths and stop the simulation.
 
+# Instruction
+
 # Compilation and usage
 
 To build the program, run in the project root:
