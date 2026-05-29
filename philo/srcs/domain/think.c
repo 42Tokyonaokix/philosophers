@@ -29,7 +29,7 @@ int	philo_think(t_system *system, t_philo *philo)
 	flag |= philo_mutex_do(philo, system->print_mutex, print_str,
 			(void *)"is thinking");
 	if (flag != SUCCESS)
-		return (SUCCESS);
+		return (flag);
 	ms_think = ms_thinking_time(system, philo);
 	if (ms_think < 0)
 		return (FAILURE);
