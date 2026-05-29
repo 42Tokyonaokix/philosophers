@@ -67,7 +67,7 @@ int	change_philo_status(t_philo *philo, void *arg)
 
 	system = (t_system *)arg;
 	ms_now = get_time(system->ms_zero);
-	if (ms_now > philo->last_meal_time + system->time_to_die)
+	if (ms_now >= philo->last_meal_time + system->time_to_die)
 	{
 		flag = DEATH;
 		philo_mutex_do(philo, system->dead_mutex, philos_state_change, &flag);

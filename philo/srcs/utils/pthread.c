@@ -6,7 +6,7 @@
 /*   By: natakaha <natakaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 17:14:43 by natakaha          #+#    #+#             */
-/*   Updated: 2026/05/22 23:16:42 by natakaha         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:38:40 by natakaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	create_threads(int n, void *life_func(void *), void *monitor_func(void *),
 		{
 			flag = FAILURE;
 			fatal_error("pthread_create");
-			break ;
+			return (free_threads(thread, i), FAILURE);
 		}
 		i++;
 	}
