@@ -26,9 +26,8 @@ Brief summaries of the two primary structs used by the program (see `philo/inclu
 - Uses `gettimeofday` to implement millisecond-precision time tracking and a short-loop `usleep` based wait to implement accurate sleeps.
 - A monitor thread periodically checks `current_time - last_meal_time >= time_to_die` to detect deaths and stop the simulation.
 
-# Instruction
+# Instructions
 
-# Compilation and usage
 
 To build the program, run in the project root:
 
@@ -50,16 +49,16 @@ Arguments:
 - `time_to_sleep_ms`: duration of the sleeping action.
 - `number_of_times_each_philosopher_must_eat` (optional): if provided, the simulation ends when every philosopher has eaten at least this many times; otherwise it runs until a philosopher dies.
 
-# Notes
+## Notes
 
 - This README is a companion summary; the authoritative behavior and types are defined in `philo/includes/philo.h` and implemented under `philo/srcs/`.
 
-# References
+# Resources
 
 - POSIX threads man pages (`pthread_create`, `pthread_mutex_lock`, etc.)
 - `gettimeofday` / `usleep`
 - Dining Philosophers — https://en.wikipedia.org/wiki/Dining_philosophers_problem
 
-# AI usage
+## AI usage
 
 This project used AI as an assistant under the author's review: learning, code review, and writing assistance phases were involved. The author verified and accepted all changes made with AI help.
